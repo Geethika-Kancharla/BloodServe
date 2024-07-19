@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/user-page").hasAuthority("USER")
                         .requestMatchers("/images/*").permitAll()
                         .requestMatchers("/index").permitAll()
-                        .requestMatchers("/registration").permitAll()//I changed this line just look into it
+                        .requestMatchers("/registration").permitAll()
                         .anyRequest().authenticated())
 
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
