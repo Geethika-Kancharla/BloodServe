@@ -1,1 +1,8 @@
+# Ensure consistent line endings for text files
 * text=auto
+
+# Force LF line endings for shell scripts and similar files
+*.sh text eol=lf
+
+# Force CRLF line endings for batch files
+*.bat text eol=crlf
