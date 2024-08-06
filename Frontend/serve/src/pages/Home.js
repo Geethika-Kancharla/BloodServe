@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [showImage, setShowImage] = useState(false);
   const learnRef = useRef(null);
-  const testimonialsRef = useRef(null); // Ref for Testimonials section
+  const aboutRef = useRef(null); // Ref for About section
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,8 +18,8 @@ const Home = () => {
     learnRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToTestimonials = () => {
-    testimonialsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToAbout = () => {
+    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -27,7 +27,7 @@ const Home = () => {
       {/* Navbar */}
       <nav className="flex justify-between items-center w-full p-4 bg-white border-b border-gray-300 shadow-md">
         <div className="flex items-center">
-          <img src="/assets/logo.jpg" alt="Logo" className="h-12" />
+          <img src="/assets/logo.jpg" alt="BloodServe Logo" className="h-12" />
         </div>
         <ul className="flex space-x-6">
           <li>
@@ -39,8 +39,8 @@ const Home = () => {
             </button>
           </li>
           <li>
-            <button onClick={scrollToTestimonials} className="text-red-600 font-bold text-lg hover:text-red-400 transition">
-              Testimonials
+            <button onClick={scrollToAbout} className="text-red-600 font-bold text-lg hover:text-red-400 transition">
+             Our Mission
             </button>
           </li>
           <li>
@@ -85,7 +85,7 @@ const Home = () => {
           <div className={`md:w-1/2 flex justify-center md:pl-8 ${showImage ? 'animate-flow-right' : 'opacity-0'}`}>
             <img
               src="/assets/hero1.png"
-              alt="Hero"
+              alt="People donating blood"
               className="w-[430px] h-[250px] object-cover"
               style={{ maxWidth: '100%', height: 'auto' }}
             />
@@ -93,12 +93,12 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Donation Section */}
+      {/* Learn About Donation Section */}
       <section ref={learnRef} className="w-11/12 max-w-screen-xl my-8 text-center">
         <h2 className="text-4xl text-red-500 mb-6">Learn About Blood Donation</h2>
         <div className="flex flex-wrap justify-between items-center mt-6">
           <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
-            <img src="/assets/blood-donation.jpg" alt="Blood Donation" className="w-full h-auto" />
+            <img src="/assets/blood-donation.jpg" alt="Blood donation process" className="w-full h-auto" />
           </div>
           <div className="w-full md:w-1/2 text-gray-800">
             <p className="text-lg mb-4">One Blood Donation can save up to Three Lives</p>
@@ -157,45 +157,24 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section ref={testimonialsRef} className="w-11/12 max-w-screen-xl my-8 text-center">
-        <h2 className="text-4xl text-red-500 mb-6">What Our Donors Say</h2>
-        <div className="flex flex-wrap justify-around">
-          <div className="p-6 bg-white rounded-lg shadow-md max-w-xs m-4 border border-red-400">
-            <img src="/assets/image2.png" alt="Donor 1" className="w-32 h-24 rounded-full mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-red-500">Geethika K</h3>
-            <p className="text-gray-600">Social Media Influencer</p>
-            <p className="text-gray-700 mt-4">
-              "Donating blood has been an incredibly rewarding experience. Knowing that a simple act can save lives makes it all worthwhile. The process is smooth, and the staff is always supportive and professional."
-            </p>
-            <div className="flex justify-center mt-4">
-              {/* Stars */}
-              <span className="text-red-500">★★★★★</span>
-            </div>
+      {/* About Section */}
+      <section ref={aboutRef} className="w-11/12 max-w-screen-xl my-8 text-center">
+        <h2 className="text-4xl text-red-500 mb-6">Join Us in Saving Lives</h2>
+        <div className="flex flex-wrap justify-between items-center mt-6">
+          <div className="w-full md:w-1/3 flex flex-col items-center text-center mb-6 md:mb-0 px-4">
+            <img src="/assets/i1.png" alt="Volunteer smiling" className="w-45 h-40 mb-4  object-cover" />
+            <h3 className="text-xl font-bold text-red-500">Become a donor</h3>
+            <p className="text-lg text-gray-800">By donating blood, you can help ensure a stable supply for those in need. Your donation can be a lifeline for someone in an emergency.</p>
           </div>
-          <div className="p-6 bg-white rounded-lg shadow-md max-w-xs m-4 border border-red-400">
-            <img src="/assets/image2.png" alt="Donor 2" className="w-32 h-24 rounded-full mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-red-500">Hamsapriya</h3>
-            <p className="text-gray-600">Social Worker</p>
-            <p className="text-gray-700 mt-4">
-              "I've been donating blood for several years, and every time I'm reminded of the importance of giving back to the community. It's a small effort with a huge impact, and I'm proud to be a part of this life-saving mission."
-            </p>
-            <div className="flex justify-center mt-4">
-              {/* Stars */}
-              <span className="text-red-500">★★★★★</span>
-            </div>
+          <div className="w-full md:w-1/3 flex flex-col items-center text-center mb-6 md:mb-0 px-4">
+            <img src="/assets/i2.png" alt="Blood bag" className="w-45 h-40 mb-4  object-cover" />
+            <h3 className="text-xl font-bold text-red-500">Why give blood?</h3>
+            <p className="text-lg text-gray-800">Regular blood donations are crucial in maintaining a healthy and reliable blood supply. Your consistent support can make a big difference.</p>
           </div>
-          <div className="p-6 bg-white rounded-lg shadow-md max-w-xs m-4 border border-red-400">
-            <img src="/assets/image2.png" alt="Donor 3" className="w-32 h-24 rounded-full mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-red-500">Deepa Rani</h3>
-            <p className="text-gray-600">Sports Person</p>
-            <p className="text-gray-700 mt-4">
-              "The experience of donating blood is always smooth and hassle-free. The staff is compassionate and makes sure you're comfortable throughout the process. It's amazing to think that my donation can help someone in need."
-            </p>
-            <div className="flex justify-center mt-4">
-              {/* Stars */}
-              <span className="text-red-500">★★★★★</span>
-            </div>
+          <div className="w-full md:w-1/3 flex flex-col items-center text-center mb-6 md:mb-0 px-4">
+            <img src="/assets/i3.png" alt="Blood test" className="w-45 h-40 mb-4  object-cover" />
+            <h3 className="text-xl font-bold text-red-500">How donation helps?</h3>
+            <p className="text-lg text-gray-800">Every blood type is needed to meet the diverse needs of patients. Donating blood can help people of all ages and conditions.</p>
           </div>
         </div>
       </section>
