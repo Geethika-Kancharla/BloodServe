@@ -44,6 +44,8 @@ public class SecurityConfig {
                         .requestMatchers("/images/*").permitAll()
                         .requestMatchers("/index").permitAll()
                         .requestMatchers("/registration").permitAll()
+                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/get").permitAll()
                         .anyRequest().authenticated())
 
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")

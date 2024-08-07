@@ -30,7 +30,7 @@ public class UserDto {
 
     private String phonenumber;
 
-    public UserDto(String email, String password, String role, String fullname, String gender,String age, String bloodgroup,String address,String phonenumber) {
+    public UserDto(Long id, String email, String password, String role, String fullname, String gender, String age, String bloodgroup, String address, String phonenumber) {
 
         super();
         this.email = email;
@@ -41,7 +41,7 @@ public class UserDto {
         this.age=age;
         this.bloodgroup = bloodgroup;
         this.address = address;
-        this.phonenumber=phonenumber;
+        this.phonenumber= this.phonenumber;
     }
 
     public Long getId() {
@@ -117,9 +117,6 @@ public class UserDto {
     public void setBloodgroup(String bloodgroup) {
         this.bloodgroup = bloodgroup;
     }
-
-
-
 
 
     public String getAddress() {

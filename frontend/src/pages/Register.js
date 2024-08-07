@@ -1,24 +1,42 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        fullName: '',
+        fullname: '',
         email: '',
         password: '',
         gender: '',
-        phoneNumber: '',
+        phonenumber: '',
         age: '',
-        bloodGroup: '',
+        bloodgroup: '',
         address: ''
     });
+
+    const [message, setMessage] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        try {
+            const response = await axios.post('http://localhost:8080/register', formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            setMessage(response.data.message);
+
+        } catch (error) {
+            if (error.response && error.response.data) {
+                setMessage(error.response.data.message || 'Registration failed. Please try again.');
+            } else {
+                setMessage('Registration failed. Please try again.');
+            }
+        }
     };
 
     return (
@@ -30,9 +48,9 @@ const Register = () => {
                         <label className="block text-gray-700 mb-1">Full Name:</label>
                         <input
                             type="text"
-                            name="fullName"
+                            name="fullname"
                             placeholder="Enter your full name"
-                            value={formData.fullName}
+                            value={formData.fullname}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
                             required
@@ -91,9 +109,9 @@ const Register = () => {
                         <label className="block text-gray-700 mb-1">Phone Number:</label>
                         <input
                             type="tel"
-                            name="phoneNumber"
+                            name="phonenumber"
                             placeholder="Enter your phone number"
-                            value={formData.phoneNumber}
+                            value={formData.phonenumber}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
                             required
@@ -114,8 +132,8 @@ const Register = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 mb-1">Blood Group:</label>
                         <select
-                            name="bloodGroup"
-                            value={formData.bloodGroup}
+                            name="bloodgroup"
+                            value={formData.bloodgroup}
                             onChange={handleChange}
                             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
                             required
@@ -157,6 +175,11 @@ const Register = () => {
                         </a>
                     </p>
                 </div>
+                {message && (
+                    <div className="mt-4 text-center text-red-500">
+                        {message}
+                    </div>
+                )}
             </div>
         </div>
     );

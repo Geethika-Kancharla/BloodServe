@@ -14,6 +14,7 @@ import com.example.BloodServe.repositories.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,8 +24,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-
 
     @Override
     public User save(UserDto userDto) {
@@ -37,7 +36,6 @@ public class UserServiceImpl implements UserService {
     }
 
    */
-
 
     public void delete(long id) {
         userRepository.deleteById(id);
@@ -56,4 +54,23 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-}
+
+    @Override
+    public List<UserDto> getAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(user -> new UserDto(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getFullname(),
+                user.getGender(),
+                user.getAge(),
+                user.getBloodgroup(),
+                user.getAddress(),
+                user.getPhonenumber()
+        )).collect(Collectors.toList());
+    }
+
+
+    }

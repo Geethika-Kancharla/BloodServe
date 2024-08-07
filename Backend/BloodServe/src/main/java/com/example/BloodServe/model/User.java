@@ -21,6 +21,8 @@ public class User {
 
     private String email;
     private String password;
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private String role;
     private String fullname;
 
@@ -38,6 +40,7 @@ public class User {
 
     public User() {
         super();
+        this.role = "USER";
     }
 
     public User(String email, String password, String role, String fullname,String gender,String age,String bloodgroup,String address,String phonenumber) {
@@ -45,7 +48,7 @@ public class User {
 
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = role != null ? role : "USER";
         this.fullname = fullname;
         this.gender = gender;
         this.age=age;
@@ -53,7 +56,6 @@ public class User {
         this.address = address;
         this.phonenumber=phonenumber;
     }
-
 
     public Long getId() {
         return id;
@@ -127,8 +129,6 @@ public class User {
     public void setBloodgroup(String bloodgroup) {
         this.bloodgroup = bloodgroup;
     }
-
-
 
     public String getAddress() {
         return address;

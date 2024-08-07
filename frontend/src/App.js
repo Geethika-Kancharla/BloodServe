@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import User from './pages/User';
 
 function App() {
   return (
@@ -12,13 +13,13 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin-page" element={<Admin />} />
+      <Route path="/user-page" element={<User />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
 
   );
 }
-
 
 const NotFound = () => (
   <div className="flex justify-center items-center h-screen bg-gray-100">

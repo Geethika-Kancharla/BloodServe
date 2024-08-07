@@ -1,11 +1,14 @@
 package com.example.BloodServe.controller;
 
 import java.security.Principal;
+import java.util.List;
 
+import com.example.BloodServe.dto.RegistrationResponse;
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -15,8 +18,8 @@ import com.example.BloodServe.dto.UserDto;
 import com.example.BloodServe.service.UserService;
 
 
-@Controller
-@CrossOrigin
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -39,12 +42,21 @@ public class UserController {
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
         return "register";
     }
+
+
     @PostMapping("/registration")
     public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, Model model) {
 
         userService.save(userDto);
         model.addAttribute("message", "Registered Successfuly!");
         return "login";
+    }
+
+
+    @PostMapping("/register")
+    public ResponseEntity<?> saveUser(@Valid @RequestBody UserDto userDto) {
+        userService.save(userDto);
+        return ResponseEntity.ok(new RegistrationResponse("Registered Successfully!"));
     }
 
 
@@ -103,6 +115,14 @@ public class UserController {
         userService.save(user);
         return "redirect:/";
     }
+
+
+    @GetMapping("/get")
+    public ResponseEntity<List<UserDto>> getAll() {
+        List<UserDto> employees = userService.getAll();
+        return ResponseEntity.ok(employees);
+    }
+
 
     @RequestMapping("/delete/{id}")
     public String deleteDonor(@PathVariable(name = "id") long id) {

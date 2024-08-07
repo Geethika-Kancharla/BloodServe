@@ -19,4 +19,5 @@ public interface UserService {
 
     public User getDonorById(long id);
 
+    List<UserDto> getAll();
 }
