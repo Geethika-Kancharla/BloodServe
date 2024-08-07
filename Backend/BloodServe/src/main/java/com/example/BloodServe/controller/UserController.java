@@ -1,25 +1,22 @@
 package com.example.BloodServe.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
 import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.BloodServe.dto.UserDto;
 import com.example.BloodServe.service.UserService;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -31,6 +28,7 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
 
     @GetMapping("/index")
     public String home() {
@@ -48,6 +46,7 @@ public class UserController {
         model.addAttribute("message", "Registered Successfuly!");
         return "login";
     }
+
 
     @GetMapping("/login")
     public String login() {

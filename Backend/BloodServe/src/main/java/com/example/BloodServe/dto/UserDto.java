@@ -25,9 +25,6 @@ public class UserDto {
     private String bloodgroup;
 
 
-
-
-
     @NotNull
     private String address;
 

@@ -1,6 +1,10 @@
 package com.example.BloodServe.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+
+
     @Override
     public User save(UserDto userDto) {
         User user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()) , userDto.getRole(), userDto.getFullname(),userDto.getGender(),userDto.getAge(),userDto.getBloodgroup(),userDto.getAddress(),userDto.getPhonenumber());
@@ -31,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
    */
+
 
     public void delete(long id) {
         userRepository.deleteById(id);

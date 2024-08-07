@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.example.BloodServe.model.User;
@@ -27,7 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return new CustomUserDetail(user);
     }
-
 
     public List<User> findByKeyword(String keyword){
         return userRepository.findByKeyword(keyword);
