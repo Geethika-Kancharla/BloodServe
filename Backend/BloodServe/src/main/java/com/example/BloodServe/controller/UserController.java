@@ -3,12 +3,16 @@ package com.example.BloodServe.controller;
 import java.security.Principal;
 import java.util.List;
 
+import com.example.BloodServe.dto.LoginRequest;
+import com.example.BloodServe.dto.LoginResponse;
 import com.example.BloodServe.dto.RegistrationResponse;
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,38 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        // Authenticate the user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Get the user details from the authentication object
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // Return the user role
+        return ResponseEntity.ok(new LoginResponse(userDetails.getAuthorities().iterator().next().getAuthority()));
+    }
+
+    @GetMapping("/role")
+    public ResponseEntity<?> getUserRole() {
+        // Get the current authenticated user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return ResponseEntity.ok(new LoginResponse(userDetails.getAuthorities().iterator().next().getAuthority()));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok("Logged out successfully");
+    }
 
 
     @GetMapping("/index")

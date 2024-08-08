@@ -1,23 +1,37 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
-    rememberMe: false
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setLoginData({
       ...loginData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(loginData);
+    try {
+      const response = await axios.post('http://localhost:8080/login', loginData, { withCredentials: true });
+      const { role } = response.data;
+      localStorage.setItem('role', role);
+      if (role === 'ADMIN') {
+        navigate('/admin-page');
+      } else if (role === 'USER') {
+        navigate('/user-page');
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   };
 
   return (

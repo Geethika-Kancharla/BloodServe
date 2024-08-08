@@ -1,20 +1,44 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import User from './pages/User';
+import Logout from './components/Logout';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
 
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/admin-page" element={<Admin />} />
-      <Route path="/user-page" element={<User />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="/admin-page"
+        element={
+          <PrivateRoute roles={['ADMIN']}>
+            <Admin />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/user-page"
+        element={
+          <PrivateRoute roles={['USER']}>
+            <User />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/logout"
+        element={
+          <PrivateRoute roles={['USER', 'ADMIN']}>
+            <Logout />
+          </PrivateRoute>
+        }
+      />
       <Route path="/*" element={<NotFound />} />
     </Routes>
 
