@@ -47,14 +47,22 @@ public class SecurityConfig {
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/get").permitAll()
+                        .requestMatchers("/login-user").permitAll()
+
+                        .requestMatchers("get-role").permitAll()
                         .anyRequest().authenticated())
 
-                .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
-                        .successHandler(customSuccessHandler).permitAll())
-
-                .logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
+                .formLogin(form -> form
+                        .disable()
+                )
+                .httpBasic(httpBasic -> httpBasic.disable()) // Disable HTTP Basic Auth
+                .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/index?logout").permitAll());
+                        .logoutSuccessUrl("/?logout")
+                        .permitAll()
+                );
 
         return http.build();
 
@@ -67,3 +75,4 @@ public class SecurityConfig {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 }
+

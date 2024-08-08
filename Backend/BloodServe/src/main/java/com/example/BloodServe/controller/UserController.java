@@ -48,25 +48,25 @@ public class UserController {
 
 
 
-//    @PostMapping("/login-user")
-//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        // Get the current authenticated user
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        // If the user is not authenticated, return an error
-//        if (authentication == null || !authentication.isAuthenticated()) {
-//            return ResponseEntity.status(401).body("Unauthorized");
-//        }
-//
-//        // Get the user details from the authentication object
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//
-//        // Extract the role from the user details
-//        String role = userDetails.getAuthorities().iterator().next().getAuthority();
-//
-//        // Return the role in the response
-//        return ResponseEntity.ok(new LoginResponse(role));
-//    }
+    @PostMapping("/login-user")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        // Get the current authenticated user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // If the user is not authenticated, return an error
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+
+        // Get the user details from the authentication object
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // Extract the role from the user details
+        String role = userDetails.getAuthorities().iterator().next().getAuthority();
+
+        // Return the role in the response
+        return ResponseEntity.ok(new LoginResponse(role));
+    }
 
 
     @PostMapping("/get-role")

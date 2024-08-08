@@ -21,7 +21,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/login-user', loginData, { withCredentials: true });
+      const response = await axios.post('http://localhost:8080/get-role', loginData, { withCredentials: true });
       console.log(response.data); // Log the entire response data
 
       const role = response.data.role;// Adjust this based on how your server sends back the role
