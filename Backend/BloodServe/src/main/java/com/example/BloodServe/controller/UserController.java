@@ -8,6 +8,8 @@ import com.example.BloodServe.dto.LoginResponse;
 import com.example.BloodServe.dto.RegistrationResponse;
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
+import com.example.BloodServe.service.CustomUserDetail;
+import com.example.BloodServe.service.CustomUserDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ import com.example.BloodServe.service.UserService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -36,31 +39,67 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
 
 
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        // Authenticate the user
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-        // Get the user details from the authentication object
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        // Return the user role
-        return ResponseEntity.ok(new LoginResponse(userDetails.getAuthorities().iterator().next().getAuthority()));
-    }
 
-    @GetMapping("/role")
-    public ResponseEntity<?> getUserRole() {
-        // Get the current authenticated user
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(401).body("Unauthorized");
+//    @PostMapping("/login-user")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//        // Get the current authenticated user
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        // If the user is not authenticated, return an error
+//        if (authentication == null || !authentication.isAuthenticated()) {
+//            return ResponseEntity.status(401).body("Unauthorized");
+//        }
+//
+//        // Get the user details from the authentication object
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//
+//        // Extract the role from the user details
+//        String role = userDetails.getAuthorities().iterator().next().getAuthority();
+//
+//        // Return the role in the response
+//        return ResponseEntity.ok(new LoginResponse(role));
+//    }
+
+
+    @PostMapping("/get-role")
+    public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginRequest) {
+        // Retrieve the user based on the email provided in the login request
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginRequest.getEmail());
+
+        // Check if the provided password matches the stored password
+        if (passwordEncoder.matches(loginRequest.getPassword(), userDetails.getPassword())) {
+            // Extract the role from the user details
+            String role = userDetails.getAuthorities().iterator().next().getAuthority();
+
+            // Return the role in the response
+            return ResponseEntity.ok(new LoginResponse(role));
+        } else {
+            // Return an error response if authentication fails
+            return ResponseEntity.status(401).body("Invalid credentials");
         }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok(new LoginResponse(userDetails.getAuthorities().iterator().next().getAuthority()));
     }
+
+
+
+//    @GetMapping("/role")
+//    public ResponseEntity<?> getUserRole() {
+//        // Get the current authenticated user
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || !authentication.isAuthenticated()) {
+//            return ResponseEntity.status(401).body("Unauthorized");
+//        }
+//
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        return ResponseEntity.ok(new LoginResponse(userDetails.getAuthorities().iterator().next().getAuthority()));
+//    }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
@@ -69,10 +108,10 @@ public class UserController {
     }
 
 
-    @GetMapping("/index")
-    public String home() {
-        return "index";
-    }
+//    @GetMapping("/index")
+//    public String home() {
+//        return "index";
+//    }
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -80,13 +119,13 @@ public class UserController {
     }
 
 
-    @PostMapping("/registration")
-    public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, Model model) {
-
-        userService.save(userDto);
-        model.addAttribute("message", "Registered Successfuly!");
-        return "login";
-    }
+//    @PostMapping("/registration")
+//    public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, Model model) {
+//
+//        userService.save(userDto);
+//        model.addAttribute("message", "Registered Successfuly!");
+//        return "login";
+//    }
 
 
     @PostMapping("/register")
@@ -96,10 +135,10 @@ public class UserController {
     }
 
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
 
     @GetMapping("user-page")
     public String userPage (Model model,Principal principal) {//
@@ -126,31 +165,33 @@ public class UserController {
         return "admin";
     }
 
-    @GetMapping("/")
-    public String admin (Model model,String keyword) {
-      /* List<User> listOfUsers = userRepository.findAll();
-        model.addAttribute("user",listOfUsers);
-        return "admin";*/
-        if(keyword != null)
-        {
-            model.addAttribute("user",userRepository.findByKeyword(keyword));
-        }
-        else {
-            model.addAttribute("user", userRepository.findAll());
-        }
-        return "admin";
-    }
-    @GetMapping("/new")
-    public String add(Model model) {
-        model.addAttribute("user", new User());
-        return "new";
-    }
+//    @GetMapping("/")
+//    public String admin (Model model,String keyword) {
+//      /* List<User> listOfUsers = userRepository.findAll();
+//        model.addAttribute("user",listOfUsers);
+//        return "admin";*/
+//        if(keyword != null)
+//        {
+//            model.addAttribute("user",userRepository.findByKeyword(keyword));
+//        }
+//        else {
+//            model.addAttribute("user", userRepository.findAll());
+//        }
+//        return "admin";
+//    }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveDonor(@ModelAttribute("user") UserDto user) {
-        userService.save(user);
-        return "redirect:/";
-    }
+
+//    @GetMapping("/new")
+//    public String add(Model model) {
+//        model.addAttribute("user", new User());
+//        return "new";
+//    }
+//
+//    @RequestMapping(value = "/save", method = RequestMethod.POST)
+//    public String saveDonor(@ModelAttribute("user") UserDto user) {
+//        userService.save(user);
+//        return "redirect:/";
+//    }
 
 
     @GetMapping("/get")

@@ -21,18 +21,28 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/login', loginData, { withCredentials: true });
-      const { role } = response.data;
-      localStorage.setItem('role', role);
-      if (role === 'ADMIN') {
-        navigate('/admin-page');
-      } else if (role === 'USER') {
-        navigate('/user-page');
+      const response = await axios.post('http://localhost:8080/login-user', loginData, { withCredentials: true });
+      console.log(response.data); // Log the entire response data
+
+      const role = response.data.role;// Adjust this based on how your server sends back the role
+      console.log(role); // Log the role
+
+      if (role) {
+        localStorage.setItem('role', role);
+
+        if (role === 'ADMIN') {
+          navigate('/admin-page');
+        } else if (role === 'USER') {
+          navigate('/user-page');
+        }
+      } else {
+        console.error('Role is undefined or missing from the response.');
       }
     } catch (error) {
       console.error('Login failed', error);
     }
   };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-red-50 px-4">
