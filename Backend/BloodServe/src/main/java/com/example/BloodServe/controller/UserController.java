@@ -68,7 +68,7 @@ public class UserController {
         return ResponseEntity.ok(new LoginResponse(role));
     }
 
-
+//Actual post request for login
     @PostMapping("/get-role")
     public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginRequest) {
         // Retrieve the user based on the email provided in the login request

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
     const [records, setRecords] = useState([]); // State to store records
@@ -128,6 +129,7 @@ const Admin = () => {
                     </button>
                 </form>
             </section>
+            <Link to="/logout">Logout</Link>
         </div>
     );
 };

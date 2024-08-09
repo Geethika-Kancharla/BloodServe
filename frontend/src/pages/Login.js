@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: '',
-    password: '',
+    password: ''
   });
 
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const Login = () => {
       if (role) {
         localStorage.setItem('role', role);
         localStorage.setItem('isLoggedIn', 'true'); // Set login state
+        console.log(localStorage.getItem('isLoggedIn'));
 
         if (role === 'ADMIN') {
           navigate('/admin-page');
