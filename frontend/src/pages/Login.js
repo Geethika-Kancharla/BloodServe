@@ -14,7 +14,7 @@ const Login = () => {
     const { name, value } = e.target;
     setLoginData({
       ...loginData,
-      [name]: value,
+      [name]: value
     });
   };
 

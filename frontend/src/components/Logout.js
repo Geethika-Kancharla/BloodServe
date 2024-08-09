@@ -8,6 +8,7 @@ const Logout = () => {
     useEffect(() => {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('role');
+        console.log(localStorage.getItem('isLoggedIn'));
         navigate('/');
     }, [navigate]);
 
