@@ -18,17 +18,16 @@ const Login = () => {
     });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/get-role', loginData, { withCredentials: true });
-      console.log(response.data); // Log the entire response data
-
-      const role = response.data.role;// Adjust this based on how your server sends back the role
-      console.log(role); // Log the role
+      const role = response.data.role; // Adjust based on your server response
 
       if (role) {
         localStorage.setItem('role', role);
+        localStorage.setItem('isLoggedIn', 'true'); // Set login state
 
         if (role === 'ADMIN') {
           navigate('/admin-page');

@@ -6,7 +6,7 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('role');
         navigate('/');
     }, [navigate]);

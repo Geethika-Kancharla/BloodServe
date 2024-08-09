@@ -1,21 +1,21 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-// Helper function to get the token and role from localStorage
+// Helper function to get login state and role from localStorage
 const getAuth = () => {
-    const token = localStorage.getItem('token');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const role = localStorage.getItem('role');
-    return { token, role };
+    return { isLoggedIn, role };
 };
 
-const PrivateRoute = ({ element: Element, role, ...rest }) => {
+const PrivateRoute = ({ roles, children }) => {
     const { pathname } = useLocation();
-    const { token, role: userRole } = getAuth();
+    const { isLoggedIn, role: userRole } = getAuth();
 
-    if (token && userRole === role) {
-        return <Element {...rest} />;
+    if (isLoggedIn && roles.includes(userRole)) {
+        return children;
     } else {
-        // Redirect to login or any other page
+        // Redirect to login if not logged in
         return <Navigate to="/" state={{ from: pathname }} />;
     }
 };
