@@ -45,8 +45,6 @@ function App() {
   );
 }
 
-//Could fetch the role from endpoint "get-role" by disabling form-login in SecurityConfig and fix the post mapping for "login-user" to check of quthentication also it is not redirecting based on role returning to home route 
-
 const NotFound = () => (
   <div className="flex justify-center items-center h-screen bg-gray-100">
     <h1 className="text-4xl font-bold text-gray-700">404 - Page Not Found</h1>
