@@ -27,11 +27,24 @@ module.exports = {
           },
         },
       },
-      animation: {
-        'flow-left': 'flow-left 1s forwards',
-        'flow-right': 'flow-right 1s forwards',
-      },
     },
   },
   plugins: [],
 };
+
+
+// const withMT = require("@material-tailwind/react/utils/withMT");
+
+// module.exports = withMT({
+//   content: [],
+//   theme: {
+//     extend: {
+     
+//       animation: {
+//         'flow-left': 'flow-left 1s forwards',
+//         'flow-right': 'flow-right 1s forwards',
+//       },
+//     },
+//   },
+//   plugins: [],
+// });

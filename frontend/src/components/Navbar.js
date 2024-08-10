@@ -13,6 +13,8 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const role = localStorage.getItem('role');
+
     // Close dropdown if clicked outside
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -68,8 +70,18 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
                                                 </button>
                                             </Link>
                                         </div>
-                                        <div className='pl-6'>
-                                            {localStorage.getItem('role')}
+                                        <div className="pl-6">
+                                            {role === 'ADMIN' && (
+                                                <Link to="/admin-page" className="block  py-2 text-black focus:outline-none focus:font-bold hover:font-semibold">
+                                                    ADMIN
+                                                </Link>
+                                            )}
+                                            {role === 'USER' && (
+                                                <Link to="/user-page" className="block  py-2 text-black focus:outline-none focus:font-bold hover:font-semibold">
+                                                    USER
+                                                </Link>
+                                            )}
+
                                         </div>
                                     </div>
                                 </div>
