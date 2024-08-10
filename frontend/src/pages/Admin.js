@@ -60,7 +60,7 @@ export default function Admin() {
             <div className="h-full w-full p-6">
                 <div className="mb-8 flex items-center justify-between gap-8">
                     <div>
-                        <h2 className="text-2xl font-semibold text-red-700">Donor Records</h2>
+                        <h2 className="text-3xl font-semibold text-red-700">Donor Records</h2>
                         <p className="text-gray-500 mt-1 text-sm">See information about all donors</p>
                     </div>
                     <div className="flex flex-col gap-2 sm:flex-row">
@@ -102,7 +102,7 @@ export default function Admin() {
                                 {TABLE_HEAD.map((head) => (
                                     <th
                                         key={head}
-                                        className="border-b border-gray-200 bg-gray-50 p-4 text-sm font-medium text-gray-600"
+                                        className="border-b border-gray-200 bg-gray-50 p-4  text-sm font-medium text-gray-600"
                                     >
                                         {head}
                                     </th>
@@ -112,28 +112,28 @@ export default function Admin() {
                         <tbody>
                             {users.map((user, index) => (
                                 <tr key={user.email}>
-                                    <td className="p-4 border-b border-gray-200">
+                                    <td className="p-4 py-6 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.fullname}</p>
                                     </td>
-                                    <td className="p-4 border-b border-gray-200">
+                                    <td className="p-4 pl-0 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.email}</p>
                                     </td>
                                     <td className="p-4 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.gender}</p>
                                     </td>
-                                    <td className="p-4 border-b border-gray-200">
+                                    <td className="p-4 pl-6 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.phonenumber}</p>
                                     </td>
                                     <td className="p-4 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.age}</p>
                                     </td>
-                                    <td className="p-4 border-b border-gray-200">
+                                    <td className="p-4 pl-10 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.bloodgroup}</p>
                                     </td>
                                     <td className="p-4 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.address}</p>
                                     </td>
-                                    <td className="p-4 border-b border-gray-200">
+                                    <td className="p-2 border-b border-gray-200">
                                         <div className="flex space-x-2">
                                             {/* Edit Button */}
                                             <button className="text-gray-600 hover:text-gray-800 border border-transparent hover:border-gray-300 p-1 rounded">
