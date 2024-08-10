@@ -2,6 +2,7 @@ package com.example.BloodServe.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.BloodServe.dto.LoginRequest;
 import com.example.BloodServe.dto.LoginResponse;
@@ -184,6 +185,34 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getAll() {
         List<UserDto> employees = userService.getAll();
         return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/get/{keyword}")
+    public ResponseEntity<List<UserDto>> getByKeyword(@PathVariable String keyword) {
+        List<User> users;
+
+        if (keyword != null) {
+            users = userRepository.findByKeyword(keyword);
+        } else {
+            users = userRepository.findAll();
+        }
+        // Convert List<User> to List<UserDto>
+        List<UserDto> userDtos = users.stream()
+                .map(user -> new UserDto(
+                        user.getId(),
+                        user.getEmail(),
+                        user.getPassword(),
+                        user.getRole(),
+                        user.getFullname(),
+                        user.getGender(),
+                        user.getAge(),
+                        user.getBloodgroup(),
+                        user.getAddress(),
+                        user.getPhonenumber()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(userDtos);
     }
 
 

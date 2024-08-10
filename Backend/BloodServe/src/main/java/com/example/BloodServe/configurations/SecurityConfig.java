@@ -41,14 +41,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request.
                         requestMatchers("/admin-page")
                         .hasAuthority("ADMIN")
-                        .requestMatchers("/user-page").hasAuthority("USER")
+                        .requestMatchers("/user-page")
+                        .hasAuthority("USER")
                         .requestMatchers("/images/*").permitAll()
                         .requestMatchers("/index").permitAll()
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/get").permitAll()
-                        .requestMatchers("/login-user").permitAll()
 
+                        .requestMatchers("/get")  // Protect the endpoint
+                        .permitAll()
+
+                        .requestMatchers("/login-user").permitAll()
+                        .requestMatchers("/get/{keyword}")
+                        .permitAll()
                         .requestMatchers("get-role").permitAll()
                         .anyRequest().authenticated())
 

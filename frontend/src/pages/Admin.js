@@ -18,10 +18,29 @@ export default function Admin() {
             const response = await axios.get("http://localhost:8080/get");
             setUsers(response.data);
             console.log(response.data);
+            document.querySelector('select').value = '';
         } catch (error) {
             console.error("Error fetching donor data:", error);
         }
     };
+
+    const handleSelectChange = (event) => {
+        const selectedValue = event.target.value;
+        if (selectedValue) {
+            getByKeyword(selectedValue);
+        }
+    }
+
+
+    const getByKeyword = async (keyword) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/get/${keyword}`);
+            setUsers(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error("Error fetching donor data:", error);
+        }
+    }
 
     return (
         <>
@@ -33,7 +52,7 @@ export default function Admin() {
                         <p className="text-gray-500 mt-1 text-sm">See information about all donors</p>
                     </div>
                     <div className="flex flex-col gap-2 sm:flex-row">
-                        <button className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
+                        <button className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white" onClick={getAll}>
                             View all
                         </button>
                         <button className="flex items-center gap-2 border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
@@ -47,7 +66,7 @@ export default function Admin() {
                             <div className="relative">
                                 <select
                                     className="w-full px-10 py-2 border border-gray-300 rounded-md text-sm"
-                                    defaultValue=""
+                                    defaultValue="" onChange={handleSelectChange}
                                 >
                                     <option value="" disabled className="text-gray-900">Select Blood Group</option>
                                     <option value="A+">A+</option>
