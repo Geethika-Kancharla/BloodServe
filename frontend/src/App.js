@@ -41,6 +41,14 @@ function App() {
         }
       />
       <Route
+        path="/add"
+        element={
+          <PrivateRoute roles={['ADMIN']}>
+            <Edit />
+          </PrivateRoute>
+        }
+      />
+      <Route
         path="/logout"
         element={
           <PrivateRoute roles={['USER', 'ADMIN']}>

@@ -3,6 +3,8 @@ import { MagnifyingGlassIcon, PencilIcon, UserPlusIcon, TrashIcon } from "@heroi
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { Link } from "react-router-dom";
+
 
 const TABLE_HEAD = ["Name", "Email", "Gender", "Phone Number", "Age", "Blood Group", "Address", "Actions"];
 
@@ -67,9 +69,9 @@ export default function Admin() {
                         <button className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white" onClick={getAll}>
                             View all
                         </button>
-                        <button className="flex items-center gap-2 border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
+                        <Link to="/add" ><button className="flex items-center gap-2 border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
                             <UserPlusIcon className="h-4 w-4" /> Add donor
-                        </button>
+                        </button></Link>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 md:flex-row">

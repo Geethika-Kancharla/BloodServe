@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const Edit = () => {
+const Add = () => {
     const [formData, setFormData] = useState({
         fullname: '',
         email: '',
@@ -186,4 +186,4 @@ const Edit = () => {
     );
 };
 
-export default Edit;
+export default Add;
