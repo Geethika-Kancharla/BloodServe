@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MagnifyingGlassIcon, PencilIcon, UserPlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const TABLE_HEAD = ["Name", "Email", "Gender", "Phone Number", "Age", "Blood Group", "Address", "Actions"];
 
@@ -46,9 +47,10 @@ export default function Admin() {
         try {
             await axios.delete(`http://localhost:8080/delete/${id}`);
             getAll();
-            console.log(`Donor with id ${id} deleted successfully.`);
+            toast.success(`Deleted successfully.`);
         } catch (error) {
-            console.error("Error fetching donor data:", error);
+            console.error("Error deleting donor:", error);
+            toast.error("Failed to delete donor. Please try again.");
         }
     }
 
