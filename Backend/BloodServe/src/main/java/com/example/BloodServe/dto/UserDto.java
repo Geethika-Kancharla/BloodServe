@@ -33,6 +33,7 @@ public class UserDto {
     public UserDto(Long id, String email, String password, String role, String fullname, String gender, String age, String bloodgroup, String address, String phonenumber) {
 
         super();
+        this.id=id;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -41,7 +42,7 @@ public class UserDto {
         this.age=age;
         this.bloodgroup = bloodgroup;
         this.address = address;
-        this.phonenumber= this.phonenumber;
+        this.phonenumber= phonenumber;
     }
 
     public Long getId() {

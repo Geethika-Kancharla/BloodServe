@@ -215,11 +215,10 @@ public class UserController {
         return ResponseEntity.ok(userDtos);
     }
 
-
-    @RequestMapping("/delete/{id}")
-    public String deleteDonor(@PathVariable(name = "id") long id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteDonor(@PathVariable(name = "id") long id) {
         userService.delete(id);
-        return "redirect:/";
+
     }
     
 }

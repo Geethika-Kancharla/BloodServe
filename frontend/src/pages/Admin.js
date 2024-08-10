@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MagnifyingGlassIcon, PencilIcon, UserPlusIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, PencilIcon, UserPlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 
@@ -37,6 +37,16 @@ export default function Admin() {
             const response = await axios.get(`http://localhost:8080/get/${keyword}`);
             setUsers(response.data);
             console.log(response.data);
+        } catch (error) {
+            console.error("Error fetching donor data:", error);
+        }
+    }
+
+    const deleteDonor = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8080/delete/${id}`);
+            getAll();
+            console.log(`Donor with id ${id} deleted successfully.`);
         } catch (error) {
             console.error("Error fetching donor data:", error);
         }
@@ -122,9 +132,17 @@ export default function Admin() {
                                         <p className="text-sm text-gray-500">{user.address}</p>
                                     </td>
                                     <td className="p-4 border-b border-gray-200">
-                                        <button className="text-gray-600 hover:text-gray-800">
-                                            <PencilIcon className="h-4 w-4" />
-                                        </button>
+                                        <div className="flex space-x-2">
+                                            {/* Edit Button */}
+                                            <button className="text-gray-600 hover:text-gray-800 border border-transparent hover:border-gray-300 p-1 rounded">
+                                                <PencilIcon className="h-4 w-4" />
+                                            </button>
+
+                                            {/* Delete Button */}
+                                            <button className="text-red-600 hover:text-red-800 border border-transparent hover:border-red-300 p-1 rounded" onClick={() => { deleteDonor(user.id) }}>
+                                                <TrashIcon className="h-4 w-4" />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

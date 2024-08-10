@@ -108,7 +108,7 @@ const Register = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 mb-1">Phone Number:</label>
                         <input
-                            type="tel"
+                            type="text"
                             name="phonenumber"
                             placeholder="Enter your phone number"
                             value={formData.phonenumber}

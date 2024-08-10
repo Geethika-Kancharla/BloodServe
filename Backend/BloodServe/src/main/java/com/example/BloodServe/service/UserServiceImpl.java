@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
         return users.stream().map(user -> new UserDto(
                 user.getId(),
+
                 user.getEmail(),
                 user.getPassword(),
                 user.getRole(),
