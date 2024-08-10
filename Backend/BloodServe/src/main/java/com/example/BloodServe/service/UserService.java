@@ -11,8 +11,6 @@ public interface UserService {
 
     User save (UserDto userDto);
 
-
-
     public void delete(long id);
 
     public void saveDonor(User user);
