@@ -1,8 +1,7 @@
 import React from 'react';
-import AdminTable from './AdminTable';
+import AdminTable from "../components/AdminTable";
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'ionicons/dist/ionicons';
+
 
 const Admin = () => {
 

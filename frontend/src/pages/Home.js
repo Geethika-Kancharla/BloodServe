@@ -74,7 +74,7 @@ const Home = () => {
             </section>
 
             {/* Learn About Donation Section */}
-            <section ref={learnRef} className="w-11/12 max-w-screen-xl my-8 text-center">
+            <section ref={learnRef} className="w-11/12 max-w-screen-xl my-36 text-center">
                 <h2 className="text-4xl text-red-500 mb-6">Learn About Blood Donation</h2>
                 <div className="flex flex-wrap justify-center items-center mt-6 ">
                     {/* <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
@@ -90,10 +90,9 @@ const Home = () => {
             {/* About Section */}
             <section ref={aboutRef} className="w-11/12 max-w-screen-xl my-8 text-center">
                 <h2 className="text-4xl text-red-500 mb-6">Join Us in Saving Lives</h2>
-                <div className="flex flex-col md:flex md:flex-row justify-between items-center mt-6">
+                <div className="flex flex-col md:flex md:flex-row lg:space-x-6 justify-between items-center mt-6">
 
-
-                    <div className="w-full md:w-1/3 flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
+                    <div className="w-full md:w-1/3 flex-grow flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
                         <img src="/assets/i1.png" alt="Blood test" className="w-full h-40 object-cover mb-4" />
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-red-500 mb-4">Become a donor</h3>
@@ -103,8 +102,7 @@ const Home = () => {
                         </div>
                     </div>
 
-
-                    <div className="w-full md:w-1/3 flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
+                    <div className="w-full md:w-1/3 flex-grow flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
                         <img src="/assets/i2.png" alt="Blood test" className="w-full h-40 object-cover mb-4" />
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-red-500 mb-4">Why give blood?</h3>
@@ -114,8 +112,7 @@ const Home = () => {
                         </div>
                     </div>
 
-
-                    <div className="w-full md:w-1/3 flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
+                    <div className="w-full md:w-1/3 flex-grow flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
                         <img src="/assets/i3.png" alt="Blood test" className="w-full h-40 object-cover mb-4" />
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-red-500 mb-4">How donation helps?</h3>
@@ -125,8 +122,8 @@ const Home = () => {
                         </div>
                     </div>
 
-
                 </div>
+
             </section>
 
             {/* Footer */}
