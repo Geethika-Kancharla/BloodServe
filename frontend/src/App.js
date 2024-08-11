@@ -34,7 +34,7 @@ function App() {
         }
       />
       <Route
-        path="/edit"
+        path="/edit/:id"
         element={
           <PrivateRoute roles={['ADMIN']}>
             <Edit />

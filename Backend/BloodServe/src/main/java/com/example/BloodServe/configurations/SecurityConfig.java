@@ -47,9 +47,10 @@ public class SecurityConfig {
                         .requestMatchers("/index").permitAll()
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/register").permitAll()
-
+                        .requestMatchers("/getById/{id}").permitAll()
                         .requestMatchers("/get")  // Protect the endpoint
                         .permitAll()
+                        .requestMatchers("/update/{id}").permitAll()
                         .requestMatchers("/delete/{id}").permitAll()
                         .requestMatchers("/login-user").permitAll()
                         .requestMatchers("/get/{keyword}")

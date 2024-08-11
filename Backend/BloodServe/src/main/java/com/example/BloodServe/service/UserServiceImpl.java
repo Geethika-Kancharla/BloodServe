@@ -73,4 +73,21 @@ public class UserServiceImpl implements UserService {
         )).collect(Collectors.toList());
     }
 
+    public User updateUser(Long id, UserDto userDto) {
+        User user = getDonorById(id);
+        if (user != null) {
+            user.setFullname(userDto.getFullname());
+            user.setEmail(userDto.getEmail()); // Allow updating email
+            user.setPassword(userDto.getPassword());
+            user.setGender(userDto.getGender());
+            user.setPhonenumber(userDto.getPhonenumber());
+            user.setAge(userDto.getAge());
+            user.setBloodgroup(userDto.getBloodgroup());
+            user.setAddress(userDto.getAddress());
+
+            return userRepository.save(user);
+        }
+        return null;
     }
+
+}

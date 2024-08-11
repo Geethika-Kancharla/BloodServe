@@ -3,18 +3,23 @@ import { MagnifyingGlassIcon, PencilIcon, UserPlusIcon, TrashIcon } from "@heroi
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-
-const TABLE_HEAD = ["Name", "Email", "Gender", "Phone Number", "Age", "Blood Group", "Address", "Actions"];
 
 export default function Admin() {
+
+
+    const TABLE_HEAD = ["Name", "Email", "Gender", "Phone Number", "Age", "Blood Group", "Address", "Actions"];
+
+
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         getAll();
     }, []);
 
+
+    const navigate = useNavigate();
 
     const getAll = async () => {
         try {
@@ -54,6 +59,10 @@ export default function Admin() {
             console.error("Error deleting donor:", error);
             toast.error("Failed to delete donor. Please try again.");
         }
+    }
+
+    const updateDonor = (id) => {
+        navigate(`/edit/${id}`);
     }
 
     return (
@@ -138,7 +147,7 @@ export default function Admin() {
                                     <td className="p-2 border-b border-gray-200">
                                         <div className="flex space-x-2">
                                             {/* Edit Button */}
-                                            <button className="text-gray-600 hover:text-gray-800 border border-transparent hover:border-gray-300 p-1 rounded">
+                                            <button className="text-gray-600 hover:text-gray-800 border border-transparent hover:border-gray-300 p-1 rounded" onClick={() => { updateDonor(user.id) }}>
                                                 <PencilIcon className="h-4 w-4" />
                                             </button>
 

@@ -47,27 +47,6 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
 
-
-//    @PostMapping("/login-user")
-//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-//        // Get the current authenticated user
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        // If the user is not authenticated, return an error
-//        if (authentication == null || !authentication.isAuthenticated()) {
-//            return ResponseEntity.status(401).body("Unauthorized");
-//        }
-//
-//        // Get the user details from the authentication object
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//
-//        // Extract the role from the user details
-//        String role = userDetails.getAuthorities().iterator().next().getAuthority();
-//
-//        // Return the role in the response
-//        return ResponseEntity.ok(new LoginResponse(role));
-//    }
-
 //Actual post request for login
     @PostMapping("/get-role")
     public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginRequest) {
@@ -92,6 +71,87 @@ public class UserController {
     public ResponseEntity<?> logout() {
         SecurityContextHolder.clearContext();
         return ResponseEntity.ok("Logged out successfully");
+    }
+
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<UserDto> getDonorById(@PathVariable("id") Long donorId) {
+        User user = userService.getDonorById(donorId);
+
+        // Convert the User entity to a UserDto
+        UserDto userDto = new UserDto(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getFullname(),
+                user.getGender(),
+                user.getAge(),
+                user.getBloodgroup(),
+                user.getAddress(),
+                user.getPhonenumber()
+        );
+
+        return ResponseEntity.ok(userDto);
+    }
+
+
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<String> updateDonorById(
+//            @PathVariable("id") Long donorId,
+//            @RequestBody UserDto updatedUserDto) {
+//
+//        // Retrieve the existing User entity
+//        User existingUser = userService.getDonorById(donorId);
+//
+//        if (existingUser == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        // Update the User entity with the new values
+//        existingUser.setFullname(updatedUserDto.getFullname());
+//        existingUser.setEmail(updatedUserDto.getEmail());
+//        existingUser.setPassword(updatedUserDto.getPassword());
+//        existingUser.setGender(updatedUserDto.getGender());
+//        existingUser.setPhonenumber(updatedUserDto.getPhonenumber());
+//        existingUser.setAge(updatedUserDto.getAge());
+//        existingUser.setBloodgroup(updatedUserDto.getBloodgroup());
+//        existingUser.setAddress(updatedUserDto.getAddress());
+//
+//        // Convert the updated User entity to UserDto
+//        UserDto userDto = new UserDto(
+//                existingUser.getId(),
+//                existingUser.getEmail(),
+//                existingUser.getPassword(),
+//                existingUser.getRole(),
+//                existingUser.getFullname(),
+//                existingUser.getGender(),
+//                existingUser.getAge(),
+//                existingUser.getBloodgroup(),
+//                existingUser.getAddress(),
+//                existingUser.getPhonenumber()
+//        );
+//
+//        // Save the updated UserDto
+//        userService.save(userDto);
+//
+//        // Return a success message
+//        return ResponseEntity.ok("Edited Donor Information");
+//    }
+//
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateDonorById(
+            @PathVariable("id") Long donorId,
+            @RequestBody UserDto updatedUserDto) {
+
+        User updatedUser = userService.updateUser(donorId, updatedUserDto);
+
+        if (updatedUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok("Edited");
     }
 
 
@@ -188,7 +248,7 @@ public class UserController {
     }
 
     @GetMapping("/get/{keyword}")
-    public ResponseEntity<List<UserDto>> getByKeyword(@PathVariable String keyword) {
+    public ResponseEntity<List<UserDto>> getByKeyword(@PathVariable("keyword") String keyword) {
         List<User> users;
 
         if (keyword != null) {

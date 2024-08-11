@@ -18,4 +18,6 @@ public interface UserService {
     public User getDonorById(long id);
 
     List<UserDto> getAll();
+
+    User updateUser(Long id, UserDto userDto);
 }

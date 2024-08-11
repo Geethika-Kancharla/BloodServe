@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Edit = () => {
     const [formData, setFormData] = useState({
@@ -14,37 +15,71 @@ const Edit = () => {
         address: ''
     });
 
+    const { id } = useParams();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (id) {
+            axios.get(`http://localhost:8080/getById/${id}`)
+                .then(response => {
+                    const data = response.data;
+                    setFormData({
+                        fullname: data.fullname || '',
+                        email: data.email || '',
+                        password: data.password || '',
+                        gender: data.gender || '',
+                        phonenumber: data.phonenumber || '',
+                        age: data.age || '',
+                        bloodgroup: data.bloodgroup || '',
+                        address: data.address || ''
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+    }, [id]);
+
     const [message, setMessage] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+
+    const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/register', formData, {
+            const response = await axios.put(`http://localhost:8080/update/${id}`, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
-            setMessage(response.data.message);
-
+            // Handle the plain text response correctly
+            if (response.status === 200) {
+                setMessage(response.data); // This will be "Edited"
+                toast.success('Updated successfully.');
+                navigate("/admin-page");
+            } else {
+                throw new Error('Update failed. Please try again.');
+            }
         } catch (error) {
             if (error.response && error.response.data) {
-                setMessage(error.response.data.message || 'Registration failed. Please try again.');
+                setMessage(error.response.data.message || 'Update failed. Please try again.');
             } else {
-                setMessage('Registration failed. Please try again.');
+                setMessage('Update failed. Please try again.');
             }
+            toast.error('Update failed. Please try again.'); // Show error toast
         }
     };
+
+
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-red-50 p-4">
             <div className="w-full max-w-5xl bg-white p-6 md:p-8 rounded-lg shadow-md border border-red-200">
-                <h2 className="text-xl md:text-2xl font-bold mb-6 text-center text-red-500">Add Donor</h2>
-                <form onSubmit={handleSubmit}>
+                <h2 className="text-xl md:text-2xl font-bold mb-6 text-center text-red-500">Edit Donor</h2>
+                <form onSubmit={handleUpdate}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="mb-4">
                             <label className="block text-gray-700 mb-1">Full Name:</label>
@@ -66,8 +101,8 @@ const Edit = () => {
                                 placeholder="Enter your email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
-                                required
+                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:bg-gray-50 cursor-not-allowed"
+                                disabled
                             />
                         </div>
                         <div className="mb-4">
@@ -78,8 +113,8 @@ const Edit = () => {
                                 placeholder="Enter your password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
-                                required
+                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:bg-gray-50 cursor-not-allowed"
+                                disabled
                             />
                         </div>
                         <div className="mb-4">
@@ -90,6 +125,7 @@ const Edit = () => {
                                         type="radio"
                                         name="gender"
                                         value="Male"
+                                        checked={formData.gender === 'Male'}
                                         onChange={handleChange}
                                         className="mr-1"
                                     />
@@ -100,6 +136,7 @@ const Edit = () => {
                                         type="radio"
                                         name="gender"
                                         value="Female"
+                                        checked={formData.gender === 'Female'}
                                         onChange={handleChange}
                                         className="mr-1"
                                     />
@@ -115,7 +152,7 @@ const Edit = () => {
                                 placeholder="Enter your phone number"
                                 value={formData.phonenumber}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:bg-gray-50"
                                 required
                             />
                         </div>
@@ -127,7 +164,7 @@ const Edit = () => {
                                 placeholder="Enter your age"
                                 value={formData.age}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:bg-gray-50"
                                 required
                             />
                         </div>
@@ -137,7 +174,7 @@ const Edit = () => {
                                 name="bloodgroup"
                                 value={formData.bloodgroup}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:bg-gray-50"
                                 required
                             >
                                 <option value="" disabled>Select Blood Group</option>
@@ -159,7 +196,7 @@ const Edit = () => {
                                 placeholder="Enter your city"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:bg-gray-50"
                                 required
                             />
                         </div>
@@ -168,12 +205,12 @@ const Edit = () => {
                         type="submit"
                         className="w-fit bg-red-500 text-white py-3 px-4 rounded-md hover:bg-red-600 transition duration-200"
                     >
-                        Register
+                        Update
                     </button>
                 </form>
                 <div className="mt-6 text-center">
                     <p className="text-gray-600">
-                        back to admin page{' '}
+                        Back to admin page{' '}
                         <Link to="/admin-page" className="text-red-500 hover:underline">
                             Click here
                         </Link>
