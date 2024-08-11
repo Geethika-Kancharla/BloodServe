@@ -13,6 +13,7 @@ import com.example.BloodServe.service.CustomUserDetail;
 import com.example.BloodServe.service.CustomUserDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -172,6 +173,14 @@ public class UserController {
         userService.save(userDto);
         model.addAttribute("message", "Registered Successfuly!");
         return "login";
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<Page<UserDto>> getUsers(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "3") int size) {
+        Page<UserDto> usersPage = userService.getUsers(page, size);
+        return ResponseEntity.ok(usersPage);
     }
 
 

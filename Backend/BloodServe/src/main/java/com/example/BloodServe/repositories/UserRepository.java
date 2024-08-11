@@ -1,5 +1,7 @@
 package com.example.BloodServe.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value="select * from users where users.bloodgroup like ?1 ",nativeQuery = true)
 public List<User> findByKeyword(@Param("keyword") String keyword);
+
+
+    Page<User> findAll(Pageable pageable);
 
 }

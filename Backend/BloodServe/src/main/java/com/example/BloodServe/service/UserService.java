@@ -4,6 +4,7 @@ import com.example.BloodServe.dto.UserDto;
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface UserService {
     List<UserDto> getAll();
 
     User updateUser(Long id, UserDto userDto);
+
+    public Page<UserDto> getUsers(int page, int size);
+
+
 }

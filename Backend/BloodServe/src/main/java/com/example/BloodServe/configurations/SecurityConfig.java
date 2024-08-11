@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/getById/{id}").permitAll()
                         .requestMatchers("/get")  // Protect the endpoint
                         .permitAll()
+                        .requestMatchers("/users").permitAll()
                         .requestMatchers("/update/{id}").permitAll()
                         .requestMatchers("/delete/{id}").permitAll()
                         .requestMatchers("/login-user").permitAll()

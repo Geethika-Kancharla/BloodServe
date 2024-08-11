@@ -5,19 +5,16 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 
-
 export default function Admin() {
-
-
     const TABLE_HEAD = ["Name", "Email", "Gender", "Phone Number", "Age", "Blood Group", "Address", "Actions"];
 
-
     const [users, setUsers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(3); // Set the number of entries per page
 
     useEffect(() => {
         getAll();
     }, []);
-
 
     const navigate = useNavigate();
 
@@ -38,7 +35,6 @@ export default function Admin() {
             getByKeyword(selectedValue);
         }
     }
-
 
     const getByKeyword = async (keyword) => {
         try {
@@ -64,6 +60,13 @@ export default function Admin() {
     const updateDonor = (id) => {
         navigate(`/edit/${id}`);
     }
+
+    // Pagination logic
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <>
@@ -113,7 +116,7 @@ export default function Admin() {
                                 {TABLE_HEAD.map((head) => (
                                     <th
                                         key={head}
-                                        className="border-b border-gray-200 bg-gray-50 p-4  text-sm font-medium text-gray-600"
+                                        className="border-b border-gray-200 bg-gray-50 p-4 text-sm font-medium text-gray-600"
                                     >
                                         {head}
                                     </th>
@@ -121,7 +124,7 @@ export default function Admin() {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((user, index) => (
+                            {currentUsers.map((user, index) => (
                                 <tr key={user.email}>
                                     <td className="p-4 py-6 border-b border-gray-200">
                                         <p className="text-sm text-gray-500">{user.fullname}</p>
@@ -163,12 +166,20 @@ export default function Admin() {
                     </table>
                 </div>
                 <div className="flex items-center justify-between border-t border-gray-200 p-4">
-                    <p className="text-sm text-gray-600">Page 1 of 10</p>
+                    <p className="text-sm text-gray-600">Page {currentPage} of {Math.ceil(users.length / usersPerPage)}</p>
                     <div className="flex gap-2">
-                        <button className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
+                        <button
+                            className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white"
+                            onClick={() => paginate(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
                             Previous
                         </button>
-                        <button className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
+                        <button
+                            className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white"
+                            onClick={() => paginate(currentPage + 1)}
+                            disabled={currentPage === Math.ceil(users.length / usersPerPage)}
+                        >
                             Next
                         </button>
                     </div>

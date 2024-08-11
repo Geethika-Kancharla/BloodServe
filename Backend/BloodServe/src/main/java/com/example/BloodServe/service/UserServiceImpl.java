@@ -1,6 +1,9 @@
 package com.example.BloodServe.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -88,6 +91,17 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         }
         return null;
+    }
+
+    public Page<UserDto> getUsers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> usersPage = userRepository.findAll(pageable);
+
+        // Convert User entities to UserDto
+        return usersPage.map(user -> new UserDto(
+                user.getId(), user.getEmail(), user.getPassword(), user.getRole(),
+                user.getFullname(), user.getGender(), user.getAge(),
+                user.getBloodgroup(), user.getAddress(), user.getPhonenumber()));
     }
 
 }
