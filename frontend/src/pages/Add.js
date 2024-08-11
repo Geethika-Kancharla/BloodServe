@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Add = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +13,8 @@ const Add = () => {
         bloodgroup: '',
         address: ''
     });
+
+    const navigate = useNavigate();
 
     const [message, setMessage] = useState('');
 
@@ -28,8 +30,7 @@ const Add = () => {
                     'Content-Type': 'application/json'
                 }
             });
-
-            setMessage(response.data.message);
+            navigate("/admin-page");
 
         } catch (error) {
             if (error.response && error.response.data) {
@@ -54,7 +55,7 @@ const Add = () => {
                                 placeholder="Enter your full name"
                                 value={formData.fullname}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none  focus:bg-gray-100"
                                 required
                             />
                         </div>
@@ -66,7 +67,7 @@ const Add = () => {
                                 placeholder="Enter your email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:bg-gray-100"
                                 required
                             />
                         </div>
@@ -78,7 +79,7 @@ const Add = () => {
                                 placeholder="Enter your password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none  focus:bg-gray-100"
                                 required
                             />
                         </div>
@@ -115,7 +116,7 @@ const Add = () => {
                                 placeholder="Enter your phone number"
                                 value={formData.phonenumber}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none  focus:bg-gray-100"
                                 required
                             />
                         </div>
@@ -127,7 +128,7 @@ const Add = () => {
                                 placeholder="Enter your age"
                                 value={formData.age}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:bg-gray-100"
                                 required
                             />
                         </div>
@@ -137,7 +138,7 @@ const Add = () => {
                                 name="bloodgroup"
                                 value={formData.bloodgroup}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none "
                                 required
                             >
                                 <option value="" disabled>Select Blood Group</option>
@@ -159,23 +160,23 @@ const Add = () => {
                                 placeholder="Enter your city"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-600 focus:bg-gray-50"
+                                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:bg-gray-100"
                                 required
                             />
                         </div>
                     </div>
                     <button
                         type="submit"
-                        className="w-fit bg-red-500 text-white py-3 px-4 rounded-md hover:bg-red-600 transition duration-200"
+                        className="w-fit text-center bg-red-500 text-white py-3 px-4 rounded-md hover:bg-red-600 transition duration-200"
                     >
-                        Register
+                        Add
                     </button>
                 </form>
                 <div className="mt-6 text-center">
                     <p className="text-gray-600">
-                        back to admin page{' '}
+
                         <Link to="/admin-page" className="text-red-500 hover:underline">
-                            Click here
+                            Back to Home page
                         </Link>
                     </p>
                 </div>
@@ -186,6 +187,7 @@ const Add = () => {
                 )}
             </div>
         </div>
+
     );
 };
 
