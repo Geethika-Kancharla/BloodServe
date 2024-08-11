@@ -8,6 +8,7 @@ import User from './pages/User';
 import Logout from './components/Logout';
 import PrivateRoute from './components/PrivateRoute';
 import Edit from './pages/Edit';
+import Add from './pages/Add';
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
         path="/add"
         element={
           <PrivateRoute roles={['ADMIN']}>
-            <Edit />
+            <Add />
           </PrivateRoute>
         }
       />
