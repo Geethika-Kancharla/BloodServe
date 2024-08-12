@@ -9,6 +9,8 @@ const Login = () => {
     password: ''
   });
 
+  const [message, setMessage] = useState('');
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,7 +27,7 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8080/get-role', loginData, { withCredentials: true });
       const role = response.data.role; // Adjust based on your server response
-
+      setMessage(response.data.message);
       if (role) {
         localStorage.setItem('role', role);
         localStorage.setItem('isLoggedIn', 'true'); // Set login state
@@ -41,6 +43,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Login failed', error);
+      setMessage("Invalid Username or password");
     }
   };
 
@@ -99,6 +102,11 @@ const Login = () => {
             </a>
           </p>
         </div>
+        {message && (
+          <div className="mt-4 text-center text-red-500">
+            {message}
+          </div>
+        )}
       </div>
     </div>
   );

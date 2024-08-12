@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const Register = () => {
 
     const [message, setMessage] = useState('');
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -29,6 +32,7 @@ const Register = () => {
             });
 
             setMessage(response.data.message);
+            navigate("/user-page");
 
         } catch (error) {
             if (error.response && error.response.data) {

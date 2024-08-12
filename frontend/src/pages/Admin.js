@@ -10,7 +10,7 @@ export default function Admin() {
 
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [usersPerPage] = useState(3); // Set the number of entries per page
+    const [usersPerPage] = useState(3);
 
     useEffect(() => {
         getAll();

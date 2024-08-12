@@ -63,6 +63,9 @@ function App() {
   );
 }
 
+//Popup saying thank you for registering error message in login page and
+//analytics for user page
+
 const NotFound = () => (
   <div className="flex justify-center items-center h-screen bg-gray-100">
     <h1 className="text-4xl font-bold text-gray-700">404 - Page Not Found</h1>
