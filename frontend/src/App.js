@@ -63,8 +63,6 @@ function App() {
   );
 }
 
-//Popup saying thank you for registering error message in login page and
-//analytics for user page
 
 const NotFound = () => (
   <div className="flex justify-center items-center h-screen bg-gray-100">
