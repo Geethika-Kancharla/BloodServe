@@ -4,10 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +11,9 @@ import com.example.BloodServe.dto.UserDto;
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,12 +31,6 @@ public class UserServiceImpl implements UserService {
         User user = new User(userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()) , userDto.getRole(), userDto.getFullname(),userDto.getGender(),userDto.getAge(),userDto.getBloodgroup(),userDto.getAddress(),userDto.getPhonenumber());
         return userRepository.save(user);
     }
-
-  /*  public User get(long id) {
-        return userRepository.findById(id).get();
-    }
-
-   */
 
     public void delete(long id) {
         userRepository.deleteById(id);
@@ -104,4 +96,29 @@ public class UserServiceImpl implements UserService {
                 user.getBloodgroup(), user.getAddress(), user.getPhonenumber()));
     }
 
-}
+    @Override
+    public Map<String, Long> getAllBloodGroupCounts() {
+        Map<String, Long> bloodGroupCounts = new HashMap<>();
+
+        // Fetch count for each blood group
+        bloodGroupCounts.put("A+", userRepository.countByBloodgroup("A+"));
+        bloodGroupCounts.put("B+", userRepository.countByBloodgroup("B+"));
+        bloodGroupCounts.put("AB+", userRepository.countByBloodgroup("AB+"));
+        bloodGroupCounts.put("O+", userRepository.countByBloodgroup("O+"));
+        bloodGroupCounts.put("A-", userRepository.countByBloodgroup("A-"));
+        bloodGroupCounts.put("B-", userRepository.countByBloodgroup("B-"));
+        bloodGroupCounts.put("AB-", userRepository.countByBloodgroup("AB-"));
+        bloodGroupCounts.put("O-", userRepository.countByBloodgroup("O-"));
+
+        return bloodGroupCounts;
+    }
+
+
+    @Override
+    public long getAllCount() {
+            return userRepository.countDonors();
+
+    }
+
+
+    }

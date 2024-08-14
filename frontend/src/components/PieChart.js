@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import axios from 'axios';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = () => {
-    const data = {
-        labels: ['A+', 'B+', 'C+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'],
-        datasets: [
-            {
-                label: 'My Dataset',
-                data: [20, 10, 10, 10, 15, 15, 10, 5, 5],
-                backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99'],
-                hoverOffset: 9,
-            },
-        ],
-    };
+    const [chartData, setChartData] = useState(null);
+
+    useEffect(() => {
+        // Fetch data from the backend
+        axios.get('http://localhost:8080/countAll')
+            .then((response) => {
+                const data = response.data;
+
+                const bloodGroups = Object.keys(data);
+                const counts = Object.values(data);
+
+                setChartData({
+                    labels: bloodGroups,
+                    datasets: [
+                        {
+                            label: 'Blood Group Distribution',
+                            data: counts,
+                            backgroundColor: [
+                                '#ff9999', '#66b3ff', '#99ff99', '#ffcc99',
+                                '#c2c2f0', '#ffb3e6', '#c2f0c2', '#ffb3b3', 
+                            ],
+                            hoverOffset: 8,
+                        },
+                    ],
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
 
     const options = {
         responsive: true,
@@ -32,7 +52,7 @@ const PieChart = () => {
     return (
         <div className="flex justify-center items-center h-screen bg-white">
             <div className="w-2/3 md:w-1/3">
-                <Pie data={data} options={options} />
+                {chartData ? <Pie data={chartData} options={options} /> : <p>Loading...</p>}
             </div>
         </div>
     );

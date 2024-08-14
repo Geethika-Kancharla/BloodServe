@@ -17,9 +17,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail (String email);
 
     @Query(value="select * from users where users.bloodgroup like ?1 ",nativeQuery = true)
-public List<User> findByKeyword(@Param("keyword") String keyword);
+  public List<User> findByKeyword(@Param("keyword") String keyword);
 
+    @Query(value="SELECT COUNT(*) FROM users WHERE bloodgroup = ?1",nativeQuery = true)
+    long countByBloodgroup(String bloodGroup);
 
-    Page<User> findAll(Pageable pageable);
+    @Query(value="SELECT COUNT(*) FROM users",nativeQuery = true)
+    long countDonors();
 
 }

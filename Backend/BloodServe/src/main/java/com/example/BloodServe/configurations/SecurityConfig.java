@@ -51,6 +51,8 @@ public class SecurityConfig {
                         .requestMatchers("/get")  // Protect the endpoint
                         .permitAll()
                         .requestMatchers("/users").permitAll()
+                        .requestMatchers("/count").permitAll()
+                        .requestMatchers("/countAll").permitAll()
                         .requestMatchers("/update/{id}").permitAll()
                         .requestMatchers("/delete/{id}").permitAll()
                         .requestMatchers("/login-user").permitAll()
@@ -72,9 +74,7 @@ public class SecurityConfig {
                 );
 
         return http.build();
-
     }
-
 
 
     @Autowired

@@ -2,6 +2,7 @@ package com.example.BloodServe.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.example.BloodServe.dto.LoginRequest;
@@ -283,6 +284,19 @@ public class UserController {
 
         return ResponseEntity.ok(userDtos);
     }
+
+    @GetMapping("/countAll")
+    public ResponseEntity<Map<String, Long>> getAllBloodGroupCounts() {
+        Map<String, Long> bloodGroupCounts = userService.getAllBloodGroupCounts();
+        return ResponseEntity.ok(bloodGroupCounts);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getAllCount() {
+        long count = userService.getAllCount();
+        return ResponseEntity.ok(count);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public void deleteDonor(@PathVariable(name = "id") long id) {

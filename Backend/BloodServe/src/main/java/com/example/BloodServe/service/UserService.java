@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -23,6 +24,10 @@ public interface UserService {
     User updateUser(Long id, UserDto userDto);
 
     public Page<UserDto> getUsers(int page, int size);
+
+    public Map<String, Long> getAllBloodGroupCounts();
+
+    public long getAllCount();
 
 
 }
