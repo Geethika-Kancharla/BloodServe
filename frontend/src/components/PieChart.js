@@ -9,7 +9,6 @@ const PieChart = () => {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
-        // Fetch data from the backend
         axios.get('http://localhost:8080/countAll')
             .then((response) => {
                 const data = response.data;
@@ -25,7 +24,7 @@ const PieChart = () => {
                             data: counts,
                             backgroundColor: [
                                 '#ff9999', '#66b3ff', '#99ff99', '#ffcc99',
-                                '#c2c2f0', '#ffb3e6', '#c2f0c2', '#ffb3b3', 
+                                '#c2c2f0', '#ffb3e6', '#c2f0c2', '#ffb3b3',
                             ],
                             hoverOffset: 8,
                         },
@@ -50,8 +49,8 @@ const PieChart = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-white">
-            <div className="w-2/3 md:w-1/3">
+        <div className="flex justify-center items-center mt-10 bg-white">
+            <div className="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl h-80 sm:h-96 md:h-[400px] lg:h-[500px] md:ml-48">
                 {chartData ? <Pie data={chartData} options={options} /> : <p>Loading...</p>}
             </div>
         </div>

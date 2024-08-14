@@ -90,7 +90,7 @@ const Home = () => {
             {/* About Section */}
             <section ref={aboutRef} className="w-11/12 max-w-screen-xl my-8 text-center">
                 <h2 className="text-4xl text-red-500 mb-6">Join Us in Saving Lives</h2>
-                <div className="flex flex-col md:flex md:flex-row lg:space-x-6 justify-between items-center mt-6">
+                <div className="flex flex-col md:flex md:flex-row md:space-x-2 lg:space-x-6 justify-between items-center mt-6">
 
                     <div className="w-full md:w-1/3 flex-grow flex flex-col items-center text-center mb-6 md:mb-0 px-4 bg-white shadow-lg rounded-lg p-8">
                         <img src="/assets/i1.png" alt="Blood test" className="w-full h-40 object-cover mb-4" />

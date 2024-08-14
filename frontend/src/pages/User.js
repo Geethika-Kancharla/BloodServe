@@ -1,15 +1,18 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import PieChart from '../components/PieChart'
+import React from 'react';
+import Navbar from '../components/Navbar';
+import PieChart from '../components/PieChart';
 
 const User = () => {
   return (
     <>
       <Navbar />
-      <PieChart />
-      <div>User</div>
+      <div className="flex flex-col items-center p-4">
+        <div className="w-full max-w-5xl">
+          <PieChart />
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default User
+export default User;

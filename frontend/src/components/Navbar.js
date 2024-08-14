@@ -3,14 +3,17 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
 const Navbar = ({ scrollToAbout, scrollToLearn }) => {
-
     const loggedIn = localStorage.getItem("isLoggedIn");
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState(false);
     const menuRef = useRef(null);
 
     const handleClick = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const toggleNav = () => {
+        setIsNavOpen(!isNavOpen);
     };
 
     const role = localStorage.getItem('role');
@@ -30,13 +33,21 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
     }, [menuRef]);
 
     return (
-        <nav className="flex justify-between items-center w-full p-4 bg-white border-b border-gray-300 shadow-md">
-            <div className="flex items-center">
+        <nav className="flex flex-col lg:flex-row justify-between items-center w-full p-4 bg-white border-b border-gray-300 shadow-md">
+            <div className="flex items-center justify-between w-full lg:w-auto">
                 <img src="/assets/logo.jpg" alt="BloodServe Logo" className="h-12" />
+                <button
+                    onClick={toggleNav}
+                    className="lg:hidden text-red-600 hover:text-red-400 focus:outline-none"
+                >
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
             </div>
-            <ul className="flex space-x-6 pr-20">
+            <ul className={`flex flex-col lg:flex-row lg:space-x-6 mt-4 lg:mt-0 lg:mr-10 ${isNavOpen ? 'block' : 'hidden'} lg:flex`}>
                 <li>
-                    <a href="/" className="text-red-600 font-bold text-2xl hover:text-red-400 transition">Home</a>
+                    <Link href="/" className="text-red-600 font-bold text-2xl hover:text-red-400 transition">Home</Link>
                 </li>
                 <li>
                     <button onClick={scrollToLearn} className="text-red-600 font-bold text-2xl hover:text-red-400 transition">
@@ -54,12 +65,12 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
                     }
                     {loggedIn && (
                         <div className='flex items-center'>
-                            <div className='w-12 h-12 rounded-full flex items-center justify-center bg-green-700 hover:bg-blue-400  cursor-pointer' onClick={handleClick}>
-                                <img src='/assets/profile.jpg' />
+                            <div className='w-12 h-12 rounded-full flex items-center justify-center bg-green-700 hover:bg-blue-400 cursor-pointer' onClick={handleClick}>
+                                <img src='/assets/profile.jpg' alt="Profile" />
                             </div>
                             {isMenuOpen && (
-                                <div ref={menuRef} className="absolute bg-white rounded shadow-lg z-50 p-4 mt-40 -ml-5 w-48 mr-28 lg:mt-40 lg:mr-24 lg:-ml-20">
-                                    <div className="flex flex-col items-start gap-8 mt-2">
+                                <div ref={menuRef} className="absolute bg-white rounded shadow-lg z-50 p-4 mt-36 -ml-8 lg:-ml-20 w-48">
+                                    <div className="flex flex-col items-start gap-4">
                                         <div className='flex flex-row space-x-2'>
                                             <Link to="/logout">
                                                 <button className="text-green-500 pl-6 hover:bg-white hover:text-red-600">Logout</button>
@@ -72,21 +83,19 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
                                         </div>
                                         <div className="pl-6">
                                             {role === 'ADMIN' && (
-                                                <Link to="/admin-page" className="block  py-2 text-black focus:outline-none focus:font-bold hover:font-semibold">
+                                                <Link to="/admin-page" className="block py-2 text-black hover:font-semibold">
                                                     ADMIN
                                                 </Link>
                                             )}
                                             {role === 'USER' && (
-                                                <Link to="/user-page" className="block  py-2 text-black focus:outline-none focus:font-bold hover:font-semibold">
+                                                <Link to="/user-page" className="block py-2 text-black hover:font-semibold">
                                                     USER
                                                 </Link>
                                             )}
-
                                         </div>
                                     </div>
                                 </div>
                             )}
-
                         </div>
                     )}
                 </li>
