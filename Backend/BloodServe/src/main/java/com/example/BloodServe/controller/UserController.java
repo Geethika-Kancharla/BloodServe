@@ -50,23 +50,24 @@ public class UserController {
 
 
 //Actual post request for login
-    @PostMapping("/get-role")
-    public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginRequest) {
-        // Retrieve the user based on the email provided in the login request
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginRequest.getEmail());
+@PostMapping("/get-role")
+public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginRequest) {
+    // Retrieve the user details
+    CustomUserDetail userDetails = (CustomUserDetail) customUserDetailsService.loadUserByUsername(loginRequest.getEmail());
 
-        // Check if the provided password matches the stored password
-        if (passwordEncoder.matches(loginRequest.getPassword(), userDetails.getPassword())) {
-            // Extract the role from the user details
-            String role = userDetails.getAuthorities().iterator().next().getAuthority();
+    // Check if the provided password matches the stored password
+    if (passwordEncoder.matches(loginRequest.getPassword(), userDetails.getPassword())) {
+        // Extract the user and role
+        User user = userDetails.getUser();
+        String role = userDetails.getAuthorities().iterator().next().getAuthority();
 
-            // Return the role in the response
-            return ResponseEntity.ok(new LoginResponse(role));
-        } else {
-            // Return an error response if authentication fails
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
+        // Return the role and user ID in the response
+        return ResponseEntity.ok(new LoginResponse(role,user.getId()));
+    } else {
+        // Return an error response if authentication fails
+        return ResponseEntity.status(401).body("Invalid credentials");
     }
+}
 
 
     @PostMapping("/logout")
@@ -96,51 +97,6 @@ public class UserController {
 
         return ResponseEntity.ok(userDto);
     }
-
-
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<String> updateDonorById(
-//            @PathVariable("id") Long donorId,
-//            @RequestBody UserDto updatedUserDto) {
-//
-//        // Retrieve the existing User entity
-//        User existingUser = userService.getDonorById(donorId);
-//
-//        if (existingUser == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        // Update the User entity with the new values
-//        existingUser.setFullname(updatedUserDto.getFullname());
-//        existingUser.setEmail(updatedUserDto.getEmail());
-//        existingUser.setPassword(updatedUserDto.getPassword());
-//        existingUser.setGender(updatedUserDto.getGender());
-//        existingUser.setPhonenumber(updatedUserDto.getPhonenumber());
-//        existingUser.setAge(updatedUserDto.getAge());
-//        existingUser.setBloodgroup(updatedUserDto.getBloodgroup());
-//        existingUser.setAddress(updatedUserDto.getAddress());
-//
-//        // Convert the updated User entity to UserDto
-//        UserDto userDto = new UserDto(
-//                existingUser.getId(),
-//                existingUser.getEmail(),
-//                existingUser.getPassword(),
-//                existingUser.getRole(),
-//                existingUser.getFullname(),
-//                existingUser.getGender(),
-//                existingUser.getAge(),
-//                existingUser.getBloodgroup(),
-//                existingUser.getAddress(),
-//                existingUser.getPhonenumber()
-//        );
-//
-//        // Save the updated UserDto
-//        userService.save(userDto);
-//
-//        // Return a success message
-//        return ResponseEntity.ok("Edited Donor Information");
-//    }
-//
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateDonorById(

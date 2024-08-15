@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/get")  // Protect the endpoint
                         .permitAll()
                         .requestMatchers("/users").permitAll()
+                        .requestMatchers("request-forms/{userId}").permitAll()
                         .requestMatchers("/count").permitAll()
                         .requestMatchers("/countAll").permitAll()
                         .requestMatchers("/update/{id}").permitAll()

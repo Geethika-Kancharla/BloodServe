@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import PieChart from '../components/PieChart';
+import axios from 'axios';
 
 const User = () => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
+    requestorName: '',
+    phoneNumber: '',
     email: '',
     bloodGroup: '',
     quantity: '',
-    date: '',
+    requiredDate: '',
     location: '',
     reason: '',
     comments: '',
@@ -30,14 +31,14 @@ const User = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name) newErrors.name = 'Requestor\'s Name is required.';
-    if (!formData.phone) newErrors.phone = 'Phone Number is required.';
-    else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone Number must be 10 digits.';
+    if (!formData.requestorName) newErrors.requestorName = 'Requestor\'s Name is required.';
+    if (!formData.phoneNumber) newErrors.phoneNumber = 'Phone Number is required.';
+    else if (!/^\d{10}$/.test(formData.phoneNumber)) newErrors.phoneNumber = 'Phone Number must be 10 digits.';
     if (!formData.email) newErrors.email = 'Email Address is required.';
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email Address is invalid.';
     if (!formData.bloodGroup) newErrors.bloodGroup = 'Blood Group is required.';
     if (!formData.quantity) newErrors.quantity = 'Quantity is required.';
-    if (!formData.date) newErrors.date = 'Required Date is required.';
+    if (!formData.requiredDate) newErrors.requiredDate = 'Required Date is required.';
     if (!formData.location) newErrors.location = 'Hospital/Location is required.';
     if (!formData.reason) newErrors.reason = 'Reason for Request is required.';
     if (!formData.agree) newErrors.agree = 'You must agree to share your information.';
@@ -47,13 +48,42 @@ const User = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const userId = localStorage.getItem("userId");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Handle form submission here
-      console.log('Form data:', formData);
-      setShowForm(false);
+      try {
+        const response = await axios.post(`http://localhost:8080/request-forms/${userId}`, formData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        console.log('Request submitted successfully');
+        setFormData({  // Clear the form data
+          requestorName: '',
+          phoneNumber: '',
+          email: '',
+          bloodGroup: '',
+          quantity: '',
+          requiredDate: '',
+          location: '',
+          reason: '',
+          comments: '',
+          agree: false
+        });
+        setShowForm(false);
+
+      } catch (error) {
+        console.error('Error:', error);
+        if (error.response && error.response.data) {
+          setErrors({ ...errors, general: error.response.data.message || 'Request failed. Please try again.' });
+        } else {
+          setErrors({ ...errors, general: 'Request failed. Please try again.' });
+        }
+      }
     }
   };
 
@@ -85,28 +115,28 @@ const User = () => {
                 <label className="block text-gray-700 font-medium">Requester's Name</label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="requestorName"
+                  value={formData.requestorName}
                   onChange={handleChange}
-                  className={`w-full mt-1 p-2 border rounded-md focus:outline-none ${errors.name ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full mt-1 p-2 border rounded-md focus:outline-none ${errors.requestorName ? 'border-red-500' : 'border-gray-300'
                     }`}
                   placeholder="Enter your full name"
                 />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                {errors.requestorName && <p className="text-red-500 text-sm">{errors.requestorName}</p>}
               </div>
 
               <div>
                 <label className="block text-gray-700 font-medium">Phone Number</label>
                 <input
                   type="tel"
-                  name="phone"
-                  value={formData.phone}
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
                   onChange={handleChange}
-                  className={`w-full mt-1 p-2 border rounded-md focus:outline-none ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full mt-1 p-2 border rounded-md focus:outline-none ${errors.phoneNumber ? 'border-red-500' : 'border-gray-300'
                     }`}
                   placeholder="Enter your phone number"
                 />
-                {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+                {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
               </div>
 
               <div>
@@ -163,13 +193,13 @@ const User = () => {
                 <label className="block text-gray-700 font-medium">Required Date</label>
                 <input
                   type="date"
-                  name="date"
-                  value={formData.date}
+                  name="requiredDate"
+                  value={formData.requiredDate}
                   onChange={handleChange}
-                  className={`w-full mt-1 p-2 border rounded-md focus:outline-none ${errors.date ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full mt-1 p-2 border rounded-md focus:outline-none ${errors.requiredDate ? 'border-red-500' : 'border-gray-300'
                     }`}
                 />
-                {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+                {errors.requiredDate && <p className="text-red-500 text-sm">{errors.requiredDate}</p>}
               </div>
 
               <div>

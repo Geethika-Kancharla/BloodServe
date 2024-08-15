@@ -26,12 +26,20 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/get-role', loginData, { withCredentials: true });
-      const role = response.data.role; // Adjust based on your server response
+
+      // Extract role and id from the response
+      const { role, id } = response.data;
+
       setMessage(response.data.message);
-      if (role) {
+      if (role && id) {
+        // Store role and id in localStorage
         localStorage.setItem('role', role);
+        localStorage.setItem('userId', id); // Store the user ID
         localStorage.setItem('isLoggedIn', 'true'); // Set login state
+
         console.log(localStorage.getItem('isLoggedIn'));
+        console.log(localStorage.getItem('userId'));
+
 
         if (role === 'ADMIN') {
           navigate('/admin-page');
@@ -39,7 +47,7 @@ const Login = () => {
           navigate('/user-page');
         }
       } else {
-        console.error('Role is undefined or missing from the response.');
+        console.error('Role or ID is undefined or missing from the response.');
       }
     } catch (error) {
       console.error('Login failed', error);
