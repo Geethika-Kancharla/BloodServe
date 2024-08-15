@@ -47,9 +47,10 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
             </div>
             <ul className={`flex flex-col lg:flex-row lg:space-x-6 mt-4 lg:mt-0 lg:mr-10 ${isNavOpen ? 'block' : 'hidden'} lg:flex`}>
                 <li>
-                    <Link href="/" className="text-red-600 font-bold text-2xl hover:text-red-400 transition">Home</Link>
+                    <Link to="/" className="text-red-600 font-bold text-2xl hover:text-red-400 transition">Home</Link>
                 </li>
                 <li>
+
                     <button onClick={scrollToLearn} className="text-red-600 font-bold text-2xl hover:text-red-400 transition">
                         Learn
                     </button>
@@ -100,7 +101,7 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
                     )}
                 </li>
             </ul>
-        </nav>
+        </nav >
     );
 };
 
