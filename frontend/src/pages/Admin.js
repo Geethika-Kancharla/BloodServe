@@ -70,7 +70,7 @@ export default function Admin() {
 
     return (
         <>
-            <Navbar />
+            <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn} />
             <div className="h-full w-full p-6">
                 <div className="mb-8 flex items-center justify-between gap-8">
                     <div>

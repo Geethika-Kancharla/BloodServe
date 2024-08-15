@@ -89,7 +89,7 @@ const User = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn} />
       <div className="flex flex-col items-center p-4">
         <div className="w-full max-w-5xl flex flex-col lg:flex-row justify-between items-center lg:items-start gap-8">
           {/* Pie Chart Section */}
