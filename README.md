@@ -1,6 +1,6 @@
 # BloodServe
 
-The Blood Donation Management System is a web-based application designed to streamline the process of managing blood donors and their registrations. Built with **Java Spring Boot** for the backend and **React** with **Tailwind CSS** for the frontend, this system provides a robust platform for efficiently handling donor information and facilitating blood donation processes.
+BloodServe is a web-based application designed to streamline the process of managing blood donors and their registrations. Built with **Java Spring Boot** for the backend and **React** with **Tailwind CSS** for the frontend, this system provides a robust platform for efficiently handling donor information and facilitating blood donation processes.
 
 ## Features
 
