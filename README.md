@@ -25,6 +25,8 @@ To run this application locally, follow these steps:
 
 ### Prerequisites
 
+- **Java 17** or later
+- **Node.js** (for running the React frontend)
 - Java Development Kit (JDK) installed.
 - MySQL installed and running.
 
@@ -32,14 +34,17 @@ To run this application locally, follow these steps:
 
 1. Clone the repository:
    ```bash
+   
    git clone https://github.com/Geethika-Kancharla/BloodServe.git
 
 2. Navigate to the backend directory:
    ```bash
+   
    cd Backend
 
 3. Update the application.properties file with your MySQL credentials
    ```bash
+   
    spring.datasource.url=jdbc:mysql://localhost:3306/your-database-name
    spring.datasource.username=your-username
    spring.datasource.password=your-password
@@ -48,20 +53,24 @@ To run this application locally, follow these steps:
    
 4. Run the Spring Boot application:
    ```bash
+   
    mvn spring-boot:run
 
 ### Frontend Setup
  
 1. Navigate to the frontend directory:
    ```bash
+   
    cd frontend
 
 2. Install the required dependencies:
    ```bash
+   
    npm install
    
 3. Start the React development server:
    ```bash
+   
    npm start
 
 The application should now be running locally. Access the frontend at [http://localhost:3000](http://localhost:3000) and the backend API at [http://localhost:8080](http://localhost:8080).
