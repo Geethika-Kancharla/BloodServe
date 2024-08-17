@@ -127,8 +127,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendEmailToDonors(String bloodgroup, String subject, String text) {
-        List<String> recipientEmails = userRepository.findEmailsByBloodGroup(bloodgroup);
+    public void sendEmailToDonors( String subject, String text) {
+        List<String> recipientEmails = userRepository.findEmailsByBloodGroup();
         for (String email : recipientEmails) {
            emailService.sendEmail(email, subject, text);
         }

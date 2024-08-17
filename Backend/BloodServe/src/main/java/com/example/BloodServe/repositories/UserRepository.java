@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     long countDonors();
 
 
-    @Query("SELECT u.email FROM User u WHERE u.bloodgroup = :bloodgroup")
-    List<String> findEmailsByBloodGroup(@Param("bloodgroup") String bloodgroup);
+    @Query("SELECT email FROM users")
+    List<String> findEmailsByBloodGroup();
 
 }
