@@ -70,7 +70,7 @@ export default function Admin() {
 
     return (
         <>
-            <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn} />
+            <Navbar />
             <div className="h-full w-full p-6">
                 <div className="mb-8 flex items-center justify-between gap-8">
                     <div>
@@ -78,6 +78,9 @@ export default function Admin() {
                         <p className="text-gray-500 mt-1 text-sm">See information about all donors</p>
                     </div>
                     <div className="flex flex-col gap-2 sm:flex-row">
+                        <Link to="/request" ><button className="flex items-center gap-2 border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white">
+                            View Requests
+                        </button></Link>
                         <button className="border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 hover:bg-black hover:text-white" onClick={getAll}>
                             View all
                         </button>

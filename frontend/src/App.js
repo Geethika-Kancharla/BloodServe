@@ -9,6 +9,7 @@ import Logout from './components/Logout';
 import PrivateRoute from './components/PrivateRoute';
 import Edit from './pages/Edit';
 import Add from './pages/Add';
+import Request from './pages/Request';
 
 function App() {
   return (
@@ -46,6 +47,14 @@ function App() {
         element={
           <PrivateRoute roles={['ADMIN']}>
             <Add />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/request"
+        element={
+          <PrivateRoute roles={['ADMIN']}>
+            <Request />
           </PrivateRoute>
         }
       />

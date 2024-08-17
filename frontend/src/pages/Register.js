@@ -70,7 +70,7 @@ const Register = () => {
 
     return (
         <>
-            <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn}/>
+            <Navbar />
             <div className="flex justify-center items-center min-h-screen bg-red-50 p-2">
                 <div className="w-full max-w-5xl bg-white p-6 md:p-8 rounded-lg shadow-md border border-red-200">
                     <h2 className="text-xl md:text-2xl font-bold mb-6 text-center text-red-500">Register</h2>

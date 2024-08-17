@@ -2,8 +2,6 @@ package com.example.BloodServe.service;
 
 import com.example.BloodServe.dto.UserDto;
 import com.example.BloodServe.model.User;
-import com.example.BloodServe.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -29,5 +27,5 @@ public interface UserService {
 
     public long getAllCount();
 
-
+    public void sendEmailToDonors(String bloodgroup, String subject, String text);
 }

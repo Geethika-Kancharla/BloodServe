@@ -6,7 +6,7 @@ import Table from '../components/Table';
 const Home = () => {
     const [showImage, setShowImage] = useState(false);
     const learnRef = useRef(null);
-    const aboutRef = useRef(null); // Ref for About section
+    const aboutRef = useRef(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -30,7 +30,7 @@ const Home = () => {
             <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn} />
 
             {/* Hero Section */}
-            <section className="relative w-full h-screen bg-white flex items-center justify-center">
+            <section className="relative w-full h-screen bg-white flex items-center justify-center overflow-x-hidden">
                 <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-between px-4">
                     {/* Left Side */}
                     <div className={`text-center md:text-left md:w-1/2 md:pr-8 ${showImage ? 'animate-flow-left' : 'opacity-0'}`}>

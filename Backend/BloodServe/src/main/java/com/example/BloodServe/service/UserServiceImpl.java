@@ -1,9 +1,12 @@
 package com.example.BloodServe.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -25,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public User save(UserDto userDto) {
@@ -113,12 +120,21 @@ public class UserServiceImpl implements UserService {
         return bloodGroupCounts;
     }
 
-
     @Override
     public long getAllCount() {
             return userRepository.countDonors();
 
     }
+
+    @Override
+    public void sendEmailToDonors(String bloodgroup, String subject, String text) {
+        List<String> recipientEmails = userRepository.findEmailsByBloodGroup(bloodgroup);
+        for (String email : recipientEmails) {
+           emailService.sendEmail(email, subject, text);
+        }
+    }
+
+
 
 
     }

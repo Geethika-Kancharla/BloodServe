@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.example.BloodServe.dto.LoginRequest;
-import com.example.BloodServe.dto.LoginResponse;
-import com.example.BloodServe.dto.RegistrationResponse;
+import com.example.BloodServe.dto.*;
 import com.example.BloodServe.model.User;
 import com.example.BloodServe.repositories.UserRepository;
 import com.example.BloodServe.service.CustomUserDetail;
 import com.example.BloodServe.service.CustomUserDetailsService;
+import com.example.BloodServe.service.RequestFormService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +23,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.example.BloodServe.dto.UserDto;
 import com.example.BloodServe.service.UserService;
 
 
@@ -48,6 +47,9 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RequestFormService requestFormService;
+
 
 //Actual post request for login
 @PostMapping("/get-role")
@@ -68,6 +70,21 @@ public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginReque
         return ResponseEntity.status(401).body("Invalid credentials");
     }
 }
+
+    @PostMapping("/send-emails/{bloodgroup}")
+    public ResponseEntity<String> sendEmails(
+            @PathVariable String bloodgroup,
+            @RequestBody EmailRequest emailRequest
+    ) {
+        try {
+            userService.sendEmailToDonors(bloodgroup, emailRequest.getSubject(), emailRequest.getText());
+            return ResponseEntity.ok("Emails sent successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending emails");
+
+
+        }
+    }
 
 
     @PostMapping("/logout")

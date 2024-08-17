@@ -89,7 +89,7 @@ const User = () => {
 
   return (
     <>
-      <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn} />
+      <Navbar />
       <div className="flex flex-col items-center p-4">
         <div className="w-full max-w-5xl flex flex-col lg:flex-row justify-between items-center lg:items-start gap-8">
           {/* Pie Chart Section */}
@@ -282,3 +282,8 @@ const User = () => {
 };
 
 export default User;
+
+
+// <button className="text-green-600 hover:text-green-950 border hover:border-gray-900 p-1 rounded">
+// <MdDone />
+// </button>

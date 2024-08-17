@@ -57,7 +57,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn}/>
+      <Navbar />
       <div className="flex flex-grow justify-center items-center bg-red-50 px-4">
         <div className="w-full max-w-md bg-red-100 p-8 rounded-lg shadow-md border border-red-200">
           <h2 className="text-2xl font-bold mb-6 text-center text-red-500">Login</h2>
