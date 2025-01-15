@@ -71,22 +71,6 @@ public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginReque
     }
 }
 
-    @PostMapping("/send-emails/{bloodgroup}")
-    public ResponseEntity<String> sendEmails(
-            @PathVariable String bloodgroup,
-            @RequestBody EmailRequest emailRequest
-    ) {
-        try {
-            userService.sendEmailToDonors(bloodgroup, emailRequest.getSubject(), emailRequest.getText());
-            return ResponseEntity.ok("Emails sent successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending emails");
-
-
-        }
-    }
-
-
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
         SecurityContextHolder.clearContext();

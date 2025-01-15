@@ -2,10 +2,8 @@ package com.example.BloodServe.controller;
 
 import com.example.BloodServe.model.RequestForm;
 import com.example.BloodServe.model.User;
-import com.example.BloodServe.service.EmailService;
 import com.example.BloodServe.service.RequestFormService;
 import com.example.BloodServe.service.UserService;
-import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +21,6 @@ public class RequestFormController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private EmailService emailService;
 
     @PostMapping("request-forms/{userId}")
     public ResponseEntity<RequestForm> submitRequestForm(@PathVariable Long userId, @RequestBody RequestForm requestForm) {
@@ -52,13 +48,5 @@ public class RequestFormController {
         // Return the response with status code 200 (OK) and the list of request forms
         return ResponseEntity.ok(requestForms);
     }
-
-    @RequestMapping("/he")
-    public String homePage() {
-        emailService.sendEmail("geethikak004@gmail.com", "Welcome George", "Sample Message here");
-        return "Sent";
-    }
-
-
 
 }

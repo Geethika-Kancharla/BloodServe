@@ -30,8 +30,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
 
     @Override
     public User save(UserDto userDto) {
@@ -125,16 +123,6 @@ public class UserServiceImpl implements UserService {
             return userRepository.countDonors();
 
     }
-
-    @Override
-    public void sendEmailToDonors( String subject, String text) {
-        List<String> recipientEmails = userRepository.findEmailsByBloodGroup();
-        for (String email : recipientEmails) {
-           emailService.sendEmail(email, subject, text);
-        }
-    }
-
-
 
 
     }

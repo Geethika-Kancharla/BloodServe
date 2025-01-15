@@ -27,5 +27,4 @@ public interface UserService {
 
     public long getAllCount();
 
-    public void sendEmailToDonors(String bloodgroup, String subject, String text);
 }

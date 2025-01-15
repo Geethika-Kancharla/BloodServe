@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoLogOutOutline } from "react-icons/io5";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ scrollToAbout, scrollToLearn }) => {
+    const navigate = useNavigate();
     const loggedIn = localStorage.getItem("isLoggedIn");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -17,8 +18,8 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
     };
 
     const role = localStorage.getItem('role');
+    console.log(loggedIn);
 
-    // Close dropdown if clicked outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -31,6 +32,13 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [menuRef]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('role');
+        setIsMenuOpen(false);
+        navigate('/');
+    };
 
     return (
         <nav className="flex flex-col lg:flex-row justify-between items-center w-full p-4 bg-white border-b border-gray-300 shadow-md">
@@ -73,14 +81,13 @@ const Navbar = ({ scrollToAbout, scrollToLearn }) => {
                                 <div ref={menuRef} className="absolute bg-white rounded shadow-lg z-50 p-4 mt-36 -ml-8 lg:-ml-20 w-48">
                                     <div className="flex flex-col items-start gap-4">
                                         <div className='flex flex-row space-x-2'>
-                                            <Link to="/logout">
-                                                <button className="text-green-500 pl-6 hover:bg-white hover:text-red-600">Logout</button>
-                                            </Link>
-                                            <Link to="/logout">
-                                                <button className="text-green-500 pl-2 hover:bg-white hover:text-red-600 text-lg">
-                                                    <IoLogOutOutline />
-                                                </button>
-                                            </Link>
+                                            <button 
+                                                onClick={handleLogout}
+                                                className="flex items-center space-x-2 text-green-500 pl-6 hover:bg-white hover:text-red-600"
+                                            >
+                                                <span>Logout</span>
+                                                <IoLogOutOutline className="text-lg" />
+                                            </button>
                                         </div>
                                         <div className="pl-6">
                                             {role === 'ADMIN' && (
