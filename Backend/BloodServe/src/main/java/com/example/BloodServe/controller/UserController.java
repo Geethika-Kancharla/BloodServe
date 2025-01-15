@@ -51,22 +51,18 @@ public class UserController {
     private RequestFormService requestFormService;
 
 
-//Actual post request for login
 @PostMapping("/get-role")
 public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginRequest) {
-    // Retrieve the user details
+
     CustomUserDetail userDetails = (CustomUserDetail) customUserDetailsService.loadUserByUsername(loginRequest.getEmail());
 
-    // Check if the provided password matches the stored password
     if (passwordEncoder.matches(loginRequest.getPassword(), userDetails.getPassword())) {
         // Extract the user and role
         User user = userDetails.getUser();
         String role = userDetails.getAuthorities().iterator().next().getAuthority();
-
-        // Return the role and user ID in the response
         return ResponseEntity.ok(new LoginResponse(role,user.getId()));
     } else {
-        // Return an error response if authentication fails
+        
         return ResponseEntity.status(401).body("Invalid credentials");
     }
 }
@@ -82,7 +78,6 @@ public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginReque
     public ResponseEntity<UserDto> getDonorById(@PathVariable("id") Long donorId) {
         User user = userService.getDonorById(donorId);
 
-        // Convert the User entity to a UserDto
         UserDto userDto = new UserDto(
                 user.getId(),
                 user.getEmail(),
@@ -223,7 +218,7 @@ public ResponseEntity<?> getUserRole(@Valid @RequestBody LoginRequest loginReque
         } else {
             users = userRepository.findAll();
         }
-        // Convert List<User> to List<UserDto>
+    
         List<UserDto> userDtos = users.stream()
                 .map(user -> new UserDto(
                         user.getId(),

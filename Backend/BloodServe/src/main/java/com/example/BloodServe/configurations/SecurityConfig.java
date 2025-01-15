@@ -14,6 +14,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import com.example.BloodServe.service.CustomSuccessHandler;
 import com.example.BloodServe.service.CustomUserDetailsService;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/getById/{id}").permitAll()
-                        .requestMatchers("/get")  // Protect the endpoint
+                        .requestMatchers("/get")  
                         .permitAll()
                         .requestMatchers("/users").permitAll()
                         .requestMatchers("request-forms/{userId}").permitAll()
@@ -56,6 +60,8 @@ public class SecurityConfig {
                         .requestMatchers("/requests").permitAll()
                         .requestMatchers("/countAll").permitAll()
                         .requestMatchers("/send-emails{bloodgroup}").permitAll()
+                        .requestMatchers("/send-matching-donors").permitAll()
+                        .requestMatchers("/send-all").permitAll()
                         .requestMatchers("/he").permitAll()
                         .requestMatchers("/update/{id}").permitAll()
                         .requestMatchers("/delete/{id}").permitAll()
@@ -68,7 +74,8 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .disable()
                 )
-                .httpBasic(httpBasic -> httpBasic.disable()) // Disable HTTP Basic Auth
+                .httpBasic(httpBasic -> httpBasic.disable()) 
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
@@ -80,6 +87,18 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Autowired
     public void configure (AuthenticationManagerBuilder auth) throws Exception {

@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowImage(true);
-        }, 1000); // 1 second delay
+        }, 1000); 
 
         return () => clearTimeout(timer);
     }, []);
@@ -26,20 +26,19 @@ const Home = () => {
 
     return (
         <div className="flex flex-col items-center bg-white">
-            {/* Navbar */}
+            
             <Navbar scrollToAbout={scrollToAbout} scrollToLearn={scrollToLearn} />
 
-            {/* Hero Section */}
             <section className="relative w-full h-screen bg-white flex items-center justify-center overflow-x-hidden">
                 <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-between px-4">
-                    {/* Left Side */}
+                
                     <div className={`text-center md:text-left md:w-1/2 md:pr-8 ${showImage ? 'animate-flow-left' : 'opacity-0'}`}>
                         <h1 className="text-5xl font-bold text-red-600 mb-3 ml-4">BloodServe</h1>
                         <p className="text-2xl text-gray-800 mb-4 ml-4">Save Lives, Donate Blood</p>
                         <p className="text-lg text-gray-600 mb-4 ml-4">
                             We are dedicated to making the process of donating blood easy and impactful. Join us in saving lives through our simple and effective donation system.
                         </p>
-                        {/* Call-to-Action Buttons */}
+                        
                         <div className="ml-4">
                             <Link to="/register">
                                 <button className="bg-red-600 text-white px-4 py-2 rounded-md mr-4 hover:bg-red-700 transition">
@@ -50,7 +49,7 @@ const Home = () => {
                                 Learn More
                             </button>
                         </div>
-                        {/* Key Statistics */}
+                    
                         <div className="mt-6 ml-4">
                             <p className="text-lg text-gray-600">
                                 <strong>1 pint</strong> of blood can save <strong>3 lives</strong>.
@@ -61,7 +60,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* Right Side */}
+                    
                     <div className={`md:w-1/2 flex justify-center md:pl-8 ${showImage ? 'animate-flow-right' : 'opacity-0'}`}>
                         <img
                             src="/assets/hero1.png"
@@ -73,7 +72,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Learn About Donation Section */}
+        
             <section ref={learnRef} className="w-11/12 max-w-screen-xl my-36 text-center">
                 <h2 className="text-4xl text-red-500 mb-6">Learn About Blood Donation</h2>
                 <div className="flex flex-wrap justify-center items-center mt-6 ">
@@ -87,7 +86,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* About Section */}
+    
             <section ref={aboutRef} className="w-11/12 max-w-screen-xl my-8 text-center">
                 <h2 className="text-4xl text-red-500 mb-6">Join Us in Saving Lives</h2>
                 <div className="flex flex-col md:flex md:flex-row md:space-x-2 lg:space-x-6 justify-between items-center mt-6">
@@ -126,7 +125,7 @@ const Home = () => {
 
             </section>
 
-            {/* Footer */}
+        
             <footer className="w-full p-4 bg-gray-800 text-white text-center">
                 &copy; {new Date().getFullYear()} BloodServe. All rights reserved.
             </footer>

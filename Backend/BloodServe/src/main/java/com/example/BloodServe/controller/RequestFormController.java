@@ -24,28 +24,25 @@ public class RequestFormController {
 
     @PostMapping("request-forms/{userId}")
     public ResponseEntity<RequestForm> submitRequestForm(@PathVariable Long userId, @RequestBody RequestForm requestForm) {
-        // Fetch the user by ID
+        
         User user = userService.getDonorById(userId);
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Return 404 if user not found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  
         }
 
-        // Link the request form to the fetched user
         requestForm.setUser(user);
 
-        // Process the request form
         RequestForm submittedForm = requestFormService.submitRequestForm(requestForm);
 
-        // Return the response with status code 201 (Created) and the submitted form
+        
         return new ResponseEntity<>(submittedForm, HttpStatus.CREATED);
     }
 
     @GetMapping("/requests")
     public ResponseEntity<List<RequestForm>> getAllRequestForms() {
-        // Fetch all request forms
+    
         List<RequestForm> requestForms = requestFormService.getAllRequestForms();
 
-        // Return the response with status code 200 (OK) and the list of request forms
         return ResponseEntity.ok(requestForms);
     }
 
