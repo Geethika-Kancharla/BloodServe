@@ -49,4 +49,18 @@ public class RequestFormController {
         return ResponseEntity.ok(requestForms);
     }
 
+    @PostMapping("/send-matching-donors")
+    public ResponseEntity<String> sendEmailToMatchingDonors(
+            @RequestParam String bloodGroup,
+            @RequestParam String subject,
+            @RequestParam String text) {
+        try {
+            requestFormService.sendEmailToMatchingDonors(bloodGroup, subject, text);
+            return ResponseEntity.ok("Emails sent successfully to matching donors");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error sending emails: " + e.getMessage());
+        }
+    }
+
 }

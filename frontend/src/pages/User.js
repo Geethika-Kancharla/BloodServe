@@ -62,7 +62,7 @@ const User = () => {
         });
 
         console.log('Request submitted successfully');
-        setFormData({  // Clear the form data
+        setFormData({  
           requestorName: '',
           phoneNumber: '',
           email: '',
@@ -264,7 +264,6 @@ const User = () => {
             </form>
           </div>
 
-          {/* Request Blood Button for lg Breakpoint */}
           {!showForm && (
             <div className="">
               <button
@@ -282,8 +281,3 @@ const User = () => {
 };
 
 export default User;
-
-
-// <button className="text-green-600 hover:text-green-950 border hover:border-gray-900 p-1 rounded">
-// <MdDone />
-// </button>

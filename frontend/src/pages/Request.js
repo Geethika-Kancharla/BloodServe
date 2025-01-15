@@ -38,16 +38,31 @@ export default function RequestPage() {
 
     const handleSendEmail = async (bloodGroup) => {
         try {
-            await axios.post("http://localhost:8080/send", null, {
+            await axios.post("http://localhost:8080/send-matching-donors", null, {
                 params: {
                     bloodGroup: bloodGroup,
-                    subject: "Urgent Blood Request", // Replace with the actual subject
-                    text: "We need blood urgently." // Replace with the actual text
+                    subject: "Urgent Blood Request",
+                    text: `We have an urgent requirement for ${bloodGroup} blood. If you are available to donate, please contact us immediately through the BloodServe platform.`
                 }
             });
-            toast.success("Emails sent successfully!");
+            toast.success(`Emails sent successfully to ${bloodGroup} blood group donors!`);
         } catch (error) {
             toast.error("Error sending emails.");
+            console.error("Error sending emails:", error);
+        }
+    };
+
+    const handleSendToAllDonors = async () => {
+        try {
+            await axios.post("http://localhost:8080/send-all", null, {
+                params: {
+                    subject: "Urgent Blood Donation Request",
+                    text: "We are in urgent need of blood donors. Please check our platform for current blood requests."
+                }
+            });
+            toast.success("Emails sent to all donors successfully!");
+        } catch (error) {
+            toast.error("Error sending emails to all donors.");
             console.error("Error sending emails:", error);
         }
     };
@@ -71,6 +86,13 @@ export default function RequestPage() {
                             See information about all blood requests
                         </p>
                     </div>
+                    <button
+                        onClick={handleSendToAllDonors}
+                        className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+                    >
+                        <IoMail className="text-lg" />
+                        <span>Send to All Donors</span>
+                    </button>
                 </div>
                 <div className="mt-4 overflow-x-auto">
                     <table className="w-full min-w-max table-auto text-left">

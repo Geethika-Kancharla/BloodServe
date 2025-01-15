@@ -12,6 +12,6 @@ public interface RequestFormService {
 
     List<RequestForm> getAllRequestForms();
 
-
+    void sendEmailToMatchingDonors(String bloodGroup, String subject, String text);
 
 }
