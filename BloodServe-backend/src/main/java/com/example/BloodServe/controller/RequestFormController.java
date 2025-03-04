@@ -13,9 +13,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(
-    origins = {"https://blood-serve.vercel.app/", "http://localhost:3000"},
-    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS},
-    allowedHeaders = "*"
+    origins = {"https://blood-serve.vercel.app", "http://localhost:3000"},
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
+    allowedHeaders = "*",
+    allowCredentials = "true"
 )
 public class RequestFormController {
 
