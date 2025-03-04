@@ -1,68 +1,94 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import axios from 'axios';
-import { ClipLoader } from 'react-spinners';
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend
+} from 'chart.js';
+import api from '../api/axios';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = () => {
-    const [chartData, setChartData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    
+    const [chartData, setChartData] = useState({
+        labels: ['No Data'],
+        datasets: [{
+            data: [0],
+            backgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#4BC0C0',
+                '#9966FF',
+                '#FF9F40'
+            ]
+        }]
+    });
 
     useEffect(() => {
-        axios.get('http://localhost:8080/countAll')
-            .then((response) => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get('/countAll');
                 const data = response.data;
-
-                const bloodGroups = Object.keys(data);
-                const counts = Object.values(data);
-
-                setChartData({
-                    labels: bloodGroups,
-                    datasets: [
-                        {
-                            label: 'Blood Group Distribution',
-                            data: counts,
+                
+                if (data && Object.keys(data).length > 0) {
+                    const labels = Object.keys(data);
+                    const values = Object.values(data);
+                    
+                    setChartData({
+                        labels: labels,
+                        datasets: [{
+                            data: values,
                             backgroundColor: [
-                                '#ff9999', '#66b3ff', '#99ff99', '#ffcc99',
-                                '#c2c2f0', '#ffb3e6', '#c2f0c2', '#ffb3b3',
-                            ],
-                            hoverOffset: 8,
-                        },
-                    ],
-                });
-                setLoading(false); // Set loading to false when data is fetched
-            })
-            .catch((error) => {
+                                '#FF6384',
+                                '#36A2EB',
+                                '#FFCE56',
+                                '#4BC0C0',
+                                '#9966FF',
+                                '#FF9F40'
+                            ]
+                        }]
+                    });
+                }
+            } catch (error) {
                 console.error('Error fetching data:', error);
-                setLoading(false); // Set loading to false if there's an error
-            });
+                
+                setChartData({
+                    labels: ['No Data'],
+                    datasets: [{
+                        data: [0],
+                        backgroundColor: ['#FF6384']
+                    }]
+                });
+            }
+        };
+
+        fetchData();
     }, []);
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top',
             },
-            tooltip: {
-                enabled: true,
-            },
-        },
+            title: {
+                display: true,
+                text: 'Blood Group Distribution'
+            }
+        }
     };
 
     return (
-        <div className="flex justify-center items-center mt-10 bg-white">
-            <div className="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl h-80 sm:h-96 md:h-[400px] lg:h-[500px] md:ml-56">
-                {loading ? (
-                    <div className="flex justify-center items-center h-full">
-                        <ClipLoader color="#ff4500" size={50} /> {/* Replace with the spinner you like */}
-                    </div>
-                ) : (
-                    <Pie data={chartData} options={options} />
-                )}
-            </div>
+        <div style={{ width: '400px', height: '400px' }}>
+            <Pie 
+                data={chartData}
+                options={options}
+            />
         </div>
     );
 };
