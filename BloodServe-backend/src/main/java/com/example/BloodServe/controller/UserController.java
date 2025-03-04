@@ -27,7 +27,11 @@ import com.example.BloodServe.service.UserService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(
+    origins = {"https://blood-serve.vercel.app/", "http://localhost:3000"},
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS},
+    allowedHeaders = "*"
+)
 public class UserController {
 
     @Autowired
