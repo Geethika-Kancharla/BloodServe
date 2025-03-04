@@ -12,15 +12,15 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByEmail (String email);
+    User findByEmail(String email);
 
-    @Query(value="select * from users where users.bloodgroup like ?1 ",nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE bloodgroup ILIKE :keyword", nativeQuery = true)
     public List<User> findByKeyword(@Param("keyword") String keyword);
 
-    @Query(value="SELECT COUNT(*) FROM users WHERE bloodgroup = ?1",nativeQuery = true)
-    long countByBloodgroup(String bloodGroup);
+    @Query(value = "SELECT COUNT(*) FROM users WHERE bloodgroup = :bloodGroup", nativeQuery = true)
+    long countByBloodgroup(@Param("bloodGroup") String bloodGroup);
 
-    @Query(value="SELECT COUNT(*) FROM users",nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM users", nativeQuery = true)
     long countDonors();
 
     List<User> findByBloodgroup(String bloodgroup);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { API_URL } from '../api/config';
 
 const Edit = () => {
     const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const Edit = () => {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:8080/getById/${id}`)
+            axios.get(`${API_URL}/getById/${id}`)
                 .then(response => {
                     const data = response.data;
                     setFormData({
@@ -49,7 +50,7 @@ const Edit = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:8080/update/${id}`, formData, {
+            const response = await axios.put(`${API_URL}/update/${id}`, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

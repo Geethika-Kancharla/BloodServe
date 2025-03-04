@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../api/config';
 
 const Add = () => {
     const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const Add = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/register', formData, {
+            const response = await axios.post(`${API_URL}/register`, formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

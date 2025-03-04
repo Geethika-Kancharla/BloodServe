@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import PieChart from '../components/PieChart';
 import axios from 'axios';
+import { API_URL } from '../api/config';
 
 const User = () => {
   const [showForm, setShowForm] = useState(false);
@@ -55,7 +56,7 @@ const User = () => {
 
     if (validateForm()) {
       try {
-        const response = await axios.post(`http://localhost:8080/request-forms/${userId}`, formData, {
+        const response = await axios.post(`${API_URL}/request-forms/${userId}`, formData, {
           headers: {
             'Content-Type': 'application/json',
           },

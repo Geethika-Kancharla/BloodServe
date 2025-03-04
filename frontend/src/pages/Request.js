@@ -4,6 +4,7 @@ import axios from "axios";
 import { IoMail } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../api/config';
 
 export default function RequestPage() {
     const TABLE_HEAD = [
@@ -28,7 +29,7 @@ export default function RequestPage() {
 
     const getAllRequests = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/requests");
+            const response = await axios.get(`${API_URL}/requests`);
             setRequests(response.data);
             console.log(response.data);
         } catch (error) {
@@ -38,7 +39,7 @@ export default function RequestPage() {
 
     const handleSendEmail = async (bloodGroup) => {
         try {
-            await axios.post("http://localhost:8080/send-matching-donors", null, {
+            await axios.post(`${API_URL}/send-matching-donors`, null, {
                 params: {
                     bloodGroup: bloodGroup,
                     subject: "Urgent Blood Request",
@@ -54,7 +55,7 @@ export default function RequestPage() {
 
     const handleSendToAllDonors = async () => {
         try {
-            await axios.post("http://localhost:8080/send-all", null, {
+            await axios.post(`${API_URL}/send-all`, null, {
                 params: {
                     subject: "Urgent Blood Donation Request",
                     text: "We are in urgent need of blood donors. Please check our platform for current blood requests."

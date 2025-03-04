@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { API_URL } from '../api/config';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -25,7 +26,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/get-role', loginData, { withCredentials: true });
+      const response = await axios.post(`${API_URL}/get-role`, loginData, { withCredentials: true });
 
       // Extract role and id from the response
       const { role, id } = response.data;

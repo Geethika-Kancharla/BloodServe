@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from '../api/config';
 
 export default function Admin() {
     const TABLE_HEAD = ["Name", "Email", "Gender", "Phone Number", "Age", "Blood Group", "Address", "Actions"];
@@ -20,7 +21,7 @@ export default function Admin() {
 
     const getAll = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/get");
+            const response = await axios.get(`${API_URL}/get`);
             setUsers(response.data);
             console.log(response.data);
             document.querySelector('select').value = '';
@@ -38,7 +39,7 @@ export default function Admin() {
 
     const getByKeyword = async (keyword) => {
         try {
-            const response = await axios.get(`http://localhost:8080/get/${keyword}`);
+            const response = await axios.get(`${API_URL}/get/${keyword}`);
             setUsers(response.data);
             console.log(response.data);
         } catch (error) {
@@ -48,7 +49,7 @@ export default function Admin() {
 
     const deleteDonor = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/delete/${id}`);
+            await axios.delete(`${API_URL}/delete/${id}`);
             getAll();
             toast.success(`Deleted successfully.`);
         } catch (error) {
