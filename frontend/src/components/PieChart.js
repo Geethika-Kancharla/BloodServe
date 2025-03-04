@@ -6,8 +6,8 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
-import api from '../api/axios';
-
+import axios from 'axios';
+import { API_URL } from '../api/config';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -31,7 +31,14 @@ const PieChart = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await api.get('/countAll');
+                const response = await axios.get(`${API_URL}/countAll`, {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                
                 const data = response.data;
                 
                 if (data && Object.keys(data).length > 0) {

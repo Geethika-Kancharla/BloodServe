@@ -3,6 +3,8 @@ FROM node:18-alpine as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --verbose
+# Update browserslist database
+RUN npx update-browserslist-db@latest
 COPY . .
 RUN npm run build --verbose
 
