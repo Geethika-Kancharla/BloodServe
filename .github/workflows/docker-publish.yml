@@ -27,11 +27,11 @@ jobs:
         with:
           context: ./BloodServe-backend
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bloodServe-backend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bloodserve-backend:latest
 
       - name: Build and push frontend
         uses: docker/build-push-action@v4
         with:
           context: ./frontend
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bloodServe-frontend:latest 
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bloodserve-frontend:latest 
