@@ -10,7 +10,7 @@ BloodServe is a web-based application designed to streamline the process of mana
 
 ---
 
-## 🚀 Try It Here
+## 🌐 Try It Here
 
 👉 **[Click the link above to try out BloodServe live!](https://blood-serve.vercel.app/)**  
 
