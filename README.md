@@ -40,8 +40,14 @@ BloodServe is a web-based application designed to streamline the process of mana
 
 ### **Backend**
 -  Java Spring Boot – A framework for building robust and scalable Java applications.
+
+### **Database**  
 -  PostgreSQL – A powerful, open-source relational database for storing and managing donor information.
--  Docker – Containerization for seamless deployment.
+
+### Deployment & DevOps  
+
+- Dockerized with **GitHub Actions** automating CI/CD—pushing images to **DockerHub** on each push event.  
+- Frontend deployed on **Vercel**, backend on **Render** for seamless scalability. 
 
 ---
 
