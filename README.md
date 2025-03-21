@@ -1,89 +1,65 @@
 # BloodServe
 
-BloodServe is a web-based application designed to streamline the process of managing blood donors and their registrations. Built with **Java Spring Boot** for the backend and **React** with **Tailwind CSS** for the frontend, this system provides a robust platform for efficiently handling donor information and facilitating blood donation processes.
+BloodServe is a web-based application designed to streamline the process of managing blood donors and their registrations. 
 
-## Features
+---
 
-- **Donor Registration:** Donors can easily register by providing necessary information, including name, contact details, and blood group.
-- **CRUD Operations:** The system allows authorized personnel to add, update, and delete donor records, ensuring that the information is always up-to-date.
-- **Blood Group Filtering:** Hospitals, blood banks, and other organizations can quickly filter and find suitable donors based on blood group, making it easier to meet emergency and regular blood requirements.
-- **Secure Access:** The system prioritizes the privacy and security of donor information, with access restricted to authorized users only.
+## Demo Video
 
-## Tech Stack
+[https://github.com/Geethika-Kancharla/BloodServe/issues/1#issue-2938155317](https://github.com/user-attachments/assets/fec2a68d-93f9-48ee-a0c3-a3deab11a106)
 
-### Frontend
-- **React:** A powerful JavaScript library for building user interfaces.
-- **Tailwind CSS:** A utility-first CSS framework for quickly designing custom UI components.
+---
 
-### Backend
-- **Java Spring Boot:** A framework for building robust and scalable Java applications.
-- **MySQL:** A reliable relational database for storing and managing donor information.
+## 🚀 Try It Here
 
-## Installation
+👉 **[Click the link above to try out BloodServe live!](https://blood-serve.vercel.app/)**  
 
-To run this application locally, follow these steps:
+---
 
-### Prerequisites
+## 🚀 Features
 
-- **Java 17** or later
-- **Node.js** (for running the React frontend)
-- Java Development Kit (JDK) installed.
-- MySQL installed and running.
+✅ **Donor Registration:** Donors can easily register by providing necessary information, including name, contact details, and blood group.
 
-### Backend Setup
+✅ **CRUD Operations:** Authorized personnel can add, update, and delete donor records, ensuring that the information is always up-to-date.
 
-1. Clone the repository:
-   ```bash
-   
-   git clone https://github.com/Geethika-Kancharla/BloodServe.git
+✅ **Blood Group Filtering:** Hospitals, blood banks, and other organizations can quickly filter and find suitable donors based on blood group, making it easier to meet emergency and regular blood requirements.
 
-2. Navigate to the backend directory:
-   ```bash
-   
-   cd Backend
+✅ **Email Notifications:** The system allows sending emails to donors based on their blood group, facilitating urgent blood donation requests.
 
-3. Update the application.properties file with your MySQL credentials
-   ```bash
-   
-   spring.datasource.url=jdbc:mysql://localhost:3306/your-database-name
-   spring.datasource.username=your-username
-   spring.datasource.password=your-password
-   spring.mail.username=your-email@gmail.com
-   spring.mail.password=your-app-password
-   
-4. Run the Spring Boot application:
-   ```bash
-   
-   mvn spring-boot:run
+✅ **Secure Access:** Privacy and security of donor information are prioritized, with access restricted to authorized users only.
 
-### Frontend Setup
- 
-1. Navigate to the frontend directory:
-   ```bash
-   
-   cd frontend
+✅ **Dockerized Deployment:** The application is fully containerized using Docker, making it easy to deploy and manage across different environments.
 
-2. Install the required dependencies:
-   ```bash
-   
-   npm install
-   
-3. Start the React development server:
-   ```bash
-   
-   npm start
+---
 
-The application should now be running locally. Access the frontend at [http://localhost:3000](http://localhost:3000) and the backend API at [http://localhost:8080](http://localhost:8080).
+## 🛠️ Tech Stack
 
-## Usage
+### **Frontend**
+-  React – A powerful JavaScript library for building user interfaces.
+-  Tailwind CSS – A utility-first CSS framework for quickly designing custom UI components.
 
-- **Register Donors**: Donors can use the registration form to provide their details.
-- **Manage Donor Records**: Authorized personnel can log in to the system to manage donor records, including adding, updating, and deleting information.
-- **Filter by Blood Group**: Use the filter functionality to find donors based on blood group criteria.
+### **Backend**
+-  Java Spring Boot – A framework for building robust and scalable Java applications.
+-  PostgreSQL – A powerful, open-source relational database for storing and managing donor information.
+-  Docker – Containerization for seamless deployment.
+
+---
 
 
-## License
+## 🐳 Docker Setup
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+To run the application using Docker:
 
-  
+1. Navigate to the project root directory.
+2. Build and start the containers:
+   ```sh
+   docker-compose up --build
+   ```
+3. The application should now be accessible at **http://localhost:3000** (frontend) and **http://localhost:8080** (backend).
+
+---
+
+## 📜 License
+This project is licensed under the **MIT License**. See the [LICENSE](path/to/license-file) file for details.
+
+---
