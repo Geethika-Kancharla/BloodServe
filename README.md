@@ -46,7 +46,7 @@ BloodServe is a web-based application designed to streamline the process of mana
 
 ### Deployment & DevOps  
 
-- Dockerized with **GitHub Actions** automating CI/CD—pushing images to **DockerHub** on each push event.  
+- Dockerized with **GitHub Actions** automating CI/CD—publishing images to **DockerHub** on each push event.  
 - Frontend deployed on **Vercel**, backend on **Render** for seamless scalability. 
 
 ---
